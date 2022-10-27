@@ -13,19 +13,40 @@ class mainShopPage {
         // categories: 'ul.categorymenu > li > a',
         categories: 'ul.categorymenu > li:nth-child(n + 2) > a',
         subcategories: '.subcategories > ul > li > a',
+        carrencies: {
+            euro: '.currency.dropdown-menu > li:nth-of-type(1) > a',
+            sterling: '.currency.dropdown-menu > li:nth-of-type(2) > a',
+            dollar: '.currency.dropdown-menu > li:nth-of-type(3) > a',
+            current: '.language.nav.pull-left  .dropdown-toggle > span'
+        },
         featuredProducts: [
             { title: "a[title='Skinsheen Bronzer Stick']", price: ".block_frame.block_frame_featured > .list-inline.thumbnails > div:nth-of-type(1) > .thumbnail > .jumbotron.pricetag > .price > .oneprice", chartBtn: ".block_frame.block_frame_featured > div > div:nth-of-type(1) > .thumbnail > .jumbotron.pricetag > a[title='Add to Cart']" },
             { title: ".block_frame.block_frame_featured a[title='BeneFit Girl Meets Pearl']", price: ".block_frame.block_frame_featured > .list-inline.thumbnails .pricenew", chartBtn: ".block_frame.block_frame_featured .nostock" },
             { title: ".block_frame_featured [title='Benefit Bella Bamba']", price: ".block_frame_featured [class='col-md-3 col-sm-6 col-xs-12']:nth-of-type(3) .oneprice", chartBtn: ".block_frame_featured [class='col-md-3 col-sm-6 col-xs-12']:nth-of-type(3) [title='Add to Cart']" },
             { title: "a[title='Tropiques Minerale Loose Bronzer']", price: ".block_frame_featured [class='col-md-3 col-sm-6 col-xs-12']:nth-of-type(4) .oneprice", chartBtn: ".block_frame_featured [class='col-md-3 col-sm-6 col-xs-12']:nth-of-type(4) [title='Add to Cart']" }
         ]
-
     }
 
     visitMainPage(){
         cy.visit('https://automationteststore.com/')
         return this
     }
+
+    changeCurrency(currency){
+        cy.get('.language.nav.pull-left  .dropdown-toggle').trigger('mouseover')
+        if(currency === 'Euro'){
+            cy.get(this.mainShopPageLocators.carrencies.euro).click()
+            cy.get(this.mainShopPageLocators.carrencies.current).should('contain', 'Euro')
+        } else if(currency === 'Sterling'){
+            cy.get(this.mainShopPageLocators.carrencies.sterling).click()
+            cy.get(this.mainShopPageLocators.carrencies.current).should('contain', 'Pound Sterling')
+        } else if(currency === 'Dollar'){
+            cy.get(this.mainShopPageLocators.carrencies.dollar).click()
+            cy.get(this.mainShopPageLocators.carrencies.current).should('contain', 'US Dollar')
+        }
+        return this
+    }
+
 
     checkSlide(sliderLocator, text){
         cy.get(sliderLocator).then(function(slideText){
@@ -143,6 +164,10 @@ class mainShopPage {
             expect(price.text().trim()).contains(expectedPtice)
         })
         return this
+    }
+
+    checkPrice(currency){
+
     }
 
     // checkfeaturedProducts(){

@@ -37,10 +37,10 @@ export const mainPageData = {
     featuredProducts: {
         sectionName: 'Featured',
         content: [
-            { name: 'Skinsheen Bronzer Stick', price: '29.50', discount: false, discountPrice: '', availableOnStock: true },
-            { name: 'BeneFit Girl Meets Pearl', price: '19.00', discount: true, discountPrice: '19.00', availableOnStock: false },
-            { name: 'Benefit Bella Bamba', price: '28.00', discount: false, discountPrice: '', availableOnStock: true },
-            { name: 'Tropiques Minerale Loose Bronzer', price: '38.50', discount: false, discountPrice: '', availableOnStock: true }
+            { name: 'Skinsheen Bronzer Stick', price: [{ currency: 'Euro', value: '27.69€' }, { currency: 'Sterling', value: '£23.40' }, { currency: 'Dollar', value: '$29.50' }], discount: false, discountPrice: '', availableOnStock: true },
+            { name: 'BeneFit Girl Meets Pearl', price: [{ currency: 'Euro', value: '28.16€' }, { currency: 'Sterling', value: '£23.80' }, { currency: 'Dollar', value: '$30.00' }], discount: true, discountPrice: [{ currency: 'Euro', value: '17.83€' }, { currency: 'Sterling', value: '£15.07' }, { currency: 'Dollar', value: '$19.00' }], availableOnStock: false },
+            { name: 'Benefit Bella Bamba', price: [{ currency: 'Euro', value: '26.28€' }, { currency: 'Sterling', value: '£22.21' }, { currency: 'Dollar', value: '$28.00' }], discount: false, discountPrice: '', availableOnStock: true },
+            { name: 'Tropiques Minerale Loose Bronzer', price: [{ currency: 'Euro', value: '36.13€' }, { currency: 'Sterling', value: '£30.54' }, { currency: 'Dollar', value: '$38.50' }], discount: false, discountPrice: '', availableOnStock: true }
         ]
     },
     latestProducts:{

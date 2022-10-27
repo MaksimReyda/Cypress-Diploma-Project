@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 import {mainPageData} from '../../fixtures/input_data'
+import topCategotyMenuComponent from '../shared_components/category_menu'
 
 class mainShopPage {
 
@@ -9,6 +10,7 @@ class mainShopPage {
             slide2: 'div:nth-of-type(2) > .animate0',
             slide3: 'div:nth-of-type(3) > .animate0'
         },
+        categories: 'ul.categorymenu > li > a',
         featuredProducts: [
             { title: "a[title='Skinsheen Bronzer Stick']", price: ".block_frame.block_frame_featured > .list-inline.thumbnails > div:nth-of-type(1) > .thumbnail > .jumbotron.pricetag > .price > .oneprice", chartBtn: ".block_frame.block_frame_featured > div > div:nth-of-type(1) > .thumbnail > .jumbotron.pricetag > a[title='Add to Cart']" },
             { title: ".block_frame.block_frame_featured a[title='BeneFit Girl Meets Pearl']", price: ".block_frame.block_frame_featured > .list-inline.thumbnails .pricenew", chartBtn: ".block_frame.block_frame_featured .nostock" },
@@ -27,6 +29,13 @@ class mainShopPage {
         cy.get(sliderLocator).then(function(slideText){
             // console.log(slideText.text().trim())
             expect(slideText.text().trim()).contains(text)
+        })
+        return this
+    }
+
+    checkCategories(){
+        cy.get(this.mainShopPageLocators.categories).each(function($el, index, $list){
+            expect($el.text().trim()).contains(topCategotyMenuComponent.categotyLocators.categoriesNames[index])
         })
         return this
     }

@@ -46,12 +46,14 @@ describe('The Main page test', function(){
             // console.log(Object.keys(result.classList))
         })
         mainPage.visitMainPage()
+            .checkCategories()
             // .checkSectionProducts(mainPageData.featuredProducts.sectionName)
             // .checkSectionProducts(mainPageData.latestProducts.sectionName)
             // .checkSectionProducts(mainPageData.bestsellersProducts.sectionName)
             // .checkSectionProducts(mainPageData.specialsProducts.sectionName)
-            .checkPromoSection()
+            // .checkPromoSection()
             // .checkIsProductOnStock(mainPage.mainShopPageLocators.featuredProducts[1].chartBtn, true)
+            
     })
 })
 

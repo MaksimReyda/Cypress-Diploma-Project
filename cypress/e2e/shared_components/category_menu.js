@@ -80,7 +80,10 @@ class topCategotyMenuComponent {
                 { name: 'Audio CD', locator: 'li:nth-of-type(8) > .subcategories > ul:nth-of-type(1) > li:nth-of-type(1) > a' },
                 { name: 'Paperback', locator: 'li:nth-of-type(8) > .subcategories > ul:nth-of-type(1) > li:nth-of-type(2) > a' }
             ]
-        }
+        },
+        categoriesNames: [
+            'Home', 'Apparel & accessories', 'Makeup', 'Skincare', 'Fragrance', 'Men', 'Hair Care', 'Books'
+        ]
     }
 
     // mainCategories = {

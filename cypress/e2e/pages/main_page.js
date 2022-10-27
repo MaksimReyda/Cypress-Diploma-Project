@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 import {mainPageData} from '../../fixtures/input_data'
-import topCategotyMenuComponent from '../shared_components/category_menu'
+// import topCategotyMenuComponent from '../shared_components/category_menu'
 
 class mainShopPage {
 
@@ -10,7 +10,9 @@ class mainShopPage {
             slide2: 'div:nth-of-type(2) > .animate0',
             slide3: 'div:nth-of-type(3) > .animate0'
         },
-        categories: 'ul.categorymenu > li > a',
+        // categories: 'ul.categorymenu > li > a',
+        categories: 'ul.categorymenu > li:nth-child(n + 2) > a',
+        subcategories: '.subcategories > ul > li > a',
         featuredProducts: [
             { title: "a[title='Skinsheen Bronzer Stick']", price: ".block_frame.block_frame_featured > .list-inline.thumbnails > div:nth-of-type(1) > .thumbnail > .jumbotron.pricetag > .price > .oneprice", chartBtn: ".block_frame.block_frame_featured > div > div:nth-of-type(1) > .thumbnail > .jumbotron.pricetag > a[title='Add to Cart']" },
             { title: ".block_frame.block_frame_featured a[title='BeneFit Girl Meets Pearl']", price: ".block_frame.block_frame_featured > .list-inline.thumbnails .pricenew", chartBtn: ".block_frame.block_frame_featured .nostock" },
@@ -35,10 +37,41 @@ class mainShopPage {
 
     checkCategories(){
         cy.get(this.mainShopPageLocators.categories).each(function($el, index, $list){
-            expect($el.text().trim()).contains(topCategotyMenuComponent.categotyLocators.categoriesNames[index])
+            expect($el.text().trim()).contains(mainPageData.categories[index].name)
         })
         return this
     }
+
+    checkSubcategories(){
+        cy.get(this.mainShopPageLocators.subcategories).each(function($el, index, $list){
+            
+            let arr = []
+
+            mainPageData.categories.forEach(function(categories){
+                // console.log(test)
+                categories.subcategories.forEach(function(subcategories){
+                    arr.push(subcategories.name)
+                })
+            
+            })
+
+            console.log(arr)
+            expect($el.text().trim()).contains(arr[index])
+            
+        })
+        return this
+    }
+
+    // test(){
+
+    //     mainPageData.categories.forEach(function(test){
+    //         console.log(test)
+    //         test.subcategories.forEach(function(categories){
+    //             cy.log(categories.name)
+    //         })
+        
+    //     })
+    // }
 
     checkProductTitle(titleLocatort, titleName){
         cy.get(titleLocatort).then(function(titleText){

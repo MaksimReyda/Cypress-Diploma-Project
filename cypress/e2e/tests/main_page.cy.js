@@ -26,13 +26,13 @@ describe('The Main page test', function(){
         cy.request('GET', 'https://automationteststore.com/').then(function(response){
             // console.log(response.body.Items)
             // result = response.body.Items
-            console.log(response)
+            // console.log(response)
             result = HTMLParser.parse(response.body)
-            console.log(result)
+            // console.log(result)
 
             function recursy(element){
                 element.childNodes.forEach(node => {
-                    console.log(node)
+                    // console.log(node)
                     if(element.childNodes.lenght > 1){
                         recursy(node)
                     }
@@ -47,6 +47,8 @@ describe('The Main page test', function(){
         })
         mainPage.visitMainPage()
             .checkCategories()
+            .checkSubcategories()
+
             // .checkSectionProducts(mainPageData.featuredProducts.sectionName)
             // .checkSectionProducts(mainPageData.latestProducts.sectionName)
             // .checkSectionProducts(mainPageData.bestsellersProducts.sectionName)

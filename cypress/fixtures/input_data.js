@@ -12,6 +12,15 @@ export const loginData = {
 
 
 export const mainPageData = {
+    categories: [
+        { name: 'Apparel & accessories', subcategories: [{ name: 'Shoes'}, { name: 'T-shirts'}] },
+        { name: 'Makeup', subcategories: [{ name: 'Cheeks'}, { name: 'Eyes'}, { name: 'Face'}, { name: 'Lips'}, { name: 'Nails'}, { name: 'Value Sets'}] },
+        { name: 'Skincare', subcategories: [{ name: 'Eyes' }, { name: 'Face' }, { name: 'Gift Ideas & Sets' }, { name: 'Hands & Nails'}, { name: 'Sun'} ] },
+        { name: 'Fragrance', subcategories: [{ name: 'Men' }, { name: 'Women' }] },
+        { name: 'Men', subcategories: [{ name: 'Body & Shower' }, { name: 'Fragrance Sets' }, { name: 'Pre-Shave & Shaving' }, { name: 'Skincare' }] },
+        { name: 'Hair Care', subcategories: [{ name: 'Conditioner' }, { name: 'Shampoo' }] },
+        { name: 'Books', subcategories: [{ name: 'Audio CD' }, { name: 'Paperback' }] }
+    ],
     banner: {
         slide1: 'Learn Automation Testing the right way Realistic Online Store!',
         slide2: "Allowing students to \nmaster their skills \nusing websites similarto what you'd face in the real world!",

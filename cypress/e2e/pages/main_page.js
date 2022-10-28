@@ -48,25 +48,26 @@ class mainShopPage {
     }
 
     getCurrency(){
+        let currencyTitle
         cy.get(this.mainShopPageLocators.carrencies.current).then(function(title){
-            return title.text().trim()
+            currencyTitle = title.text().trim()
+            console.log(currencyTitle)
+            // return title.text().trim()
+
         })
-        return this
+        return currencyTitle
     }
 
     checkPrice(currency){
-        currency = this.getCurrency()
-        // if(currency == 'Euro'){
-        //     if(!cy.get('#featured .block_frame .priceold').should('have.class', 'priceold')){
-                
-        //     }
-        // }
 
         let prices = []
         let oldPrices = []
         let newPrices = []
 
+        // let test = this.getCurrency() //UNDEFINED
+        
         cy.get('#featured .price').each(function($el, index, $list){
+
             if(!$el.wrap().children().hasClass('pricenew')){
                 console.log('-------------------')
                 prices.push($el.text().trim())
@@ -91,19 +92,19 @@ class mainShopPage {
             // prices.push($el.text().trim())
         }).then(function(){
             console.log(prices)
-
+            
             mainPageData.featuredProducts.content.forEach(function(contentElement){
 
                 contentElement.discountPrice.forEach(function(discountPriceValue){
-                    if(discountPriceValue.currency === 'Dollar' && contentElement.discount){
+                    if(discountPriceValue.currency === '$ US Dollar' && contentElement.discount){
                         expect(newPrices).contains(discountPriceValue.value)
                     }
                 })
 
                 contentElement.price.forEach(function(priceValue){
-                    if(priceValue.currency === 'Dollar' && contentElement.discount === false){
+                    if(priceValue.currency === '$ US Dollar' && contentElement.discount === false){
                         expect(prices).contains(priceValue.value)
-                    } else if(priceValue.currency === 'Dollar' && contentElement.discount){
+                    } else if(priceValue.currency === '$ US Dollar' && contentElement.discount){
                         expect(oldPrices).contains(priceValue.value)
                         // expect()
                     }                    

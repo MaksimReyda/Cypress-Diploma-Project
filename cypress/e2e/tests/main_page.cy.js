@@ -46,7 +46,9 @@ describe('The Main page test', function(){
             // console.log(Object.keys(result.classList))
         })
         mainPage.visitMainPage()
-            .changeCurrency('Euro')
+            .checkPrice('Euro')
+            // .getCurrency()
+            // .changeCurrency('Euro')
             // .checkCategories()
             // .checkSubcategories()
 

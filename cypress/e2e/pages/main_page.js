@@ -47,6 +47,74 @@ class mainShopPage {
         return this
     }
 
+    getCurrency(){
+        cy.get(this.mainShopPageLocators.carrencies.current).then(function(title){
+            return title.text().trim()
+        })
+        return this
+    }
+
+    checkPrice(currency){
+        currency = this.getCurrency()
+        // if(currency == 'Euro'){
+        //     if(!cy.get('#featured .block_frame .priceold').should('have.class', 'priceold')){
+                
+        //     }
+        // }
+
+        let prices = []
+        let oldPrices = []
+        let newPrices = []
+
+        cy.get('#featured .price').each(function($el, index, $list){
+            if(!$el.wrap().children().hasClass('pricenew')){
+                console.log('-------------------')
+                prices.push($el.text().trim())
+            } else{
+                // oldPrices.push($el.text().trim())
+
+                cy.get('#featured .price .pricenew').then(function(newPrice){
+                    newPrices.push(newPrice.text().trim())
+                })
+
+                cy.get('#featured .price .priceold').then(function(oldPrice){
+                    oldPrices.push(oldPrice.text().trim())
+                })
+            }
+            // mainPageData.featuredProducts.content.forEach(function(contentElement){
+            //     // console.log(contentElement)
+            //     contentElement.price.forEach(function(value){
+            //         console.log(value.value)
+            //     })
+            // })
+            console.log($el.text())
+            // prices.push($el.text().trim())
+        }).then(function(){
+            console.log(prices)
+
+            mainPageData.featuredProducts.content.forEach(function(contentElement){
+
+                contentElement.discountPrice.forEach(function(discountPriceValue){
+                    if(discountPriceValue.currency === 'Dollar' && contentElement.discount){
+                        expect(newPrices).contains(discountPriceValue.value)
+                    }
+                })
+
+                contentElement.price.forEach(function(priceValue){
+                    if(priceValue.currency === 'Dollar' && contentElement.discount === false){
+                        expect(prices).contains(priceValue.value)
+                    } else if(priceValue.currency === 'Dollar' && contentElement.discount){
+                        expect(oldPrices).contains(priceValue.value)
+                        // expect()
+                    }                    
+                })
+            })
+        })
+
+        return this
+
+    }
+
 
     checkSlide(sliderLocator, text){
         cy.get(sliderLocator).then(function(slideText){
@@ -164,10 +232,6 @@ class mainShopPage {
             expect(price.text().trim()).contains(expectedPtice)
         })
         return this
-    }
-
-    checkPrice(currency){
-
     }
 
     // checkfeaturedProducts(){

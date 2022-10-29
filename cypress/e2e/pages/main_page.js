@@ -58,14 +58,14 @@ class mainShopPage {
         return currencyTitle
     }
 
-    checkPrice(currency){
+    checkPrice(){
 
         let prices = []
         let oldPrices = []
         let newPrices = []
-
+        let currentCurrencyTitle
         // let test = this.getCurrency() //UNDEFINED
-        
+
         cy.get('#featured .price').each(function($el, index, $list){
 
             if(!$el.wrap().children().hasClass('pricenew')){
@@ -88,28 +88,73 @@ class mainShopPage {
             //         console.log(value.value)
             //     })
             // })
+    
             console.log($el.text())
             // prices.push($el.text().trim())
         }).then(function(){
             console.log(prices)
+
             
-            mainPageData.featuredProducts.content.forEach(function(contentElement){
+            cy.get('.language.nav.pull-left  .dropdown-toggle > span').then(function(title){
+                currentCurrencyTitle = title.text().trim()
 
-                contentElement.discountPrice.forEach(function(discountPriceValue){
-                    if(discountPriceValue.currency === '$ US Dollar' && contentElement.discount){
-                        expect(newPrices).contains(discountPriceValue.value)
-                    }
+                console.log(currentCurrencyTitle)
+                mainPageData.featuredProducts.content.forEach(function(contentElement){
+
+                    if(currentCurrencyTitle === '$ US Dollar'){
+                        contentElement.discountPrice.forEach(function(discountPriceValue){
+                            if(discountPriceValue.currency === '$ US Dollar' && contentElement.discount){
+                                expect(newPrices).contains(discountPriceValue.value)
+                            }
+                        })
+        
+                        contentElement.price.forEach(function(priceValue){
+                            if(priceValue.currency === '$ US Dollar' && contentElement.discount === false){
+                                expect(prices).contains(priceValue.value)
+                            } else if(priceValue.currency === '$ US Dollar' && contentElement.discount){
+                                expect(oldPrices).contains(priceValue.value)
+                                // expect()
+                            }                    
+                        })
+                    } else if(currentCurrencyTitle === '€ Euro'){
+                        contentElement.discountPrice.forEach(function(discountPriceValue){
+                            if(discountPriceValue.currency === '€ Euro' && contentElement.discount){
+                                expect(newPrices).contains(discountPriceValue.value)
+                            }
+                        })
+        
+                        contentElement.price.forEach(function(priceValue){
+                            if(priceValue.currency === '€ Euro' && contentElement.discount === false){
+                                expect(prices).contains(priceValue.value)
+                            } else if(priceValue.currency === '€ Euro' && contentElement.discount){
+                                expect(oldPrices).contains(priceValue.value)
+                                // expect()
+                            }                    
+                        })
+                    } else if(currentCurrencyTitle === '£ Pound Sterling'){
+                        contentElement.discountPrice.forEach(function(discountPriceValue){
+                            if(discountPriceValue.currency === '£ Pound Sterling' && contentElement.discount){
+                                expect(newPrices).contains(discountPriceValue.value)
+                            }
+                        })
+        
+                        contentElement.price.forEach(function(priceValue){
+                            if(priceValue.currency === '£ Pound Sterling' && contentElement.discount === false){
+                                expect(prices).contains(priceValue.value)
+                            } else if(priceValue.currency === '£ Pound Sterling' && contentElement.discount){
+                                expect(oldPrices).contains(priceValue.value)
+                                // expect()
+                            }                    
+                        })
+                    }          
+
                 })
 
-                contentElement.price.forEach(function(priceValue){
-                    if(priceValue.currency === '$ US Dollar' && contentElement.discount === false){
-                        expect(prices).contains(priceValue.value)
-                    } else if(priceValue.currency === '$ US Dollar' && contentElement.discount){
-                        expect(oldPrices).contains(priceValue.value)
-                        // expect()
-                    }                    
-                })
             })
+
+            console.log(currentCurrencyTitle)
+            
+
         })
 
         return this

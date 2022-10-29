@@ -13,6 +13,7 @@ class mainShopPage {
         // categories: 'ul.categorymenu > li > a',
         categories: 'ul.categorymenu > li:nth-child(n + 2) > a',
         subcategories: '.subcategories > ul > li > a',
+        outOfStock: '.nostock',
         carrencies: {
             euro: '.currency.dropdown-menu > li:nth-of-type(1) > a',
             sterling: '.currency.dropdown-menu > li:nth-of-type(2) > a',
@@ -182,6 +183,35 @@ class mainShopPage {
 
         return this
 
+    }
+
+    checkOutOfStockProducts(){
+
+        let sections = [mainPageData.featuredProducts, mainPageData.latestProducts, mainPageData.bestsellersProducts, mainPageData.specialsProducts]
+        let productsNames = []
+
+        cy.get('.block_frame > div > div .thumbnail').each(function($el, index, $list){
+
+            if($el.find('.pricetag').children().hasClass('nostock')){
+                cy.get($el.prev().children()).then(function(title){
+                    console.log(title.text().trim())
+                    productsNames.push(title.text().trim())
+                })
+            }
+
+        }).then(function () {
+            console.log(productsNames)
+
+            sections.forEach(function (section) {
+                section.content.forEach(function (item) {
+                    if (item.availableOnStock === false) {
+                        expect(productsNames).contains(item.name)
+                    }
+                })
+            })
+
+        })
+        return this
     }
 
 

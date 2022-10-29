@@ -58,15 +58,30 @@ class mainShopPage {
         return currencyTitle
     }
 
-    checkPrice(){
+    checkPrice(productsSection){
 
         let prices = []
         let oldPrices = []
         let newPrices = []
         let currentCurrencyTitle
+        let sectionId
+        if(productsSection === mainPageData.featuredProducts){
+            sectionId = 'featured'
+            productsSection = mainPageData.featuredProducts
+        } else if(productsSection === mainPageData.latestProducts){
+            sectionId = 'latest'
+            productsSection = mainPageData.latestProducts
+        } else if(productsSection === mainPageData.bestsellersProducts){
+            sectionId = 'bestseller'
+            productsSection = mainPageData.bestsellersProducts
+        } else if (productsSection === mainPageData.specialsProducts){
+            sectionId = 'special'
+            productsSection = mainPageData.specialsProducts
+        }
+
         // let test = this.getCurrency() //UNDEFINED
 
-        cy.get('#bestseller .price').each(function($el, index, $list){
+        cy.get(`#${sectionId} .price`).each(function($el, index, $list){
 
             if(!$el.wrap().children().hasClass('pricenew')){
                 // console.log('-------------------')
@@ -80,7 +95,7 @@ class mainShopPage {
                 //     newPrices.push(newPrice.text().trim())
                 // })
                 
-                cy.get('#bestseller .price .pricenew').each(function($el, index, $list){
+                cy.get(`#${sectionId} .price .pricenew`).each(function($el, index, $list){
                     // console.log($el.text().trim())
                     newPrices.push($el.text().trim())
                 })
@@ -88,7 +103,7 @@ class mainShopPage {
                 // cy.get('#latest .price .priceold').then(function(oldPrice){
                 //     oldPrices.push(oldPrice.text().trim())
                 // })
-                cy.get('#bestseller .price .priceold').each(function($el, index, $list){
+                cy.get(`#${sectionId} .price .priceold`).each(function($el, index, $list){
                     oldPrices.push($el.text().trim())
                 })
             }
@@ -110,7 +125,7 @@ class mainShopPage {
                 currentCurrencyTitle = title.text().trim()
 
                 console.log(currentCurrencyTitle)
-                mainPageData.bestsellersProducts.content.forEach(function(contentElement){
+                productsSection.content.forEach(function(contentElement){
 
                     if(currentCurrencyTitle === '$ US Dollar'){
                         contentElement.discountPrice.forEach(function(discountPriceValue){

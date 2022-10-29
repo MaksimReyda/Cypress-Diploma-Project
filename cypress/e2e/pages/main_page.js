@@ -66,20 +66,30 @@ class mainShopPage {
         let currentCurrencyTitle
         // let test = this.getCurrency() //UNDEFINED
 
-        cy.get('#featured .price').each(function($el, index, $list){
+        cy.get('#bestseller .price').each(function($el, index, $list){
 
             if(!$el.wrap().children().hasClass('pricenew')){
-                console.log('-------------------')
+                // console.log('-------------------')
+                // console.log($el.text().trim())
                 prices.push($el.text().trim())
             } else{
                 // oldPrices.push($el.text().trim())
 
-                cy.get('#featured .price .pricenew').then(function(newPrice){
-                    newPrices.push(newPrice.text().trim())
+                // cy.get('#latest .price .pricenew').then(function(newPrice){
+                //     console.log(newPrice.text().trim())
+                //     newPrices.push(newPrice.text().trim())
+                // })
+                
+                cy.get('#bestseller .price .pricenew').each(function($el, index, $list){
+                    // console.log($el.text().trim())
+                    newPrices.push($el.text().trim())
                 })
 
-                cy.get('#featured .price .priceold').then(function(oldPrice){
-                    oldPrices.push(oldPrice.text().trim())
+                // cy.get('#latest .price .priceold').then(function(oldPrice){
+                //     oldPrices.push(oldPrice.text().trim())
+                // })
+                cy.get('#bestseller .price .priceold').each(function($el, index, $list){
+                    oldPrices.push($el.text().trim())
                 })
             }
             // mainPageData.featuredProducts.content.forEach(function(contentElement){
@@ -89,17 +99,18 @@ class mainShopPage {
             //     })
             // })
     
-            console.log($el.text())
+            // console.log($el.text())
             // prices.push($el.text().trim())
         }).then(function(){
             console.log(prices)
-
+            console.log(oldPrices)
+            console.log(newPrices)
             
             cy.get('.language.nav.pull-left  .dropdown-toggle > span').then(function(title){
                 currentCurrencyTitle = title.text().trim()
 
                 console.log(currentCurrencyTitle)
-                mainPageData.featuredProducts.content.forEach(function(contentElement){
+                mainPageData.bestsellersProducts.content.forEach(function(contentElement){
 
                     if(currentCurrencyTitle === '$ US Dollar'){
                         contentElement.discountPrice.forEach(function(discountPriceValue){
@@ -150,10 +161,7 @@ class mainShopPage {
 
                 })
 
-            })
-
-            console.log(currentCurrencyTitle)
-            
+            })            
 
         })
 

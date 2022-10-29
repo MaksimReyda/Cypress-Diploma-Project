@@ -46,28 +46,28 @@ export const mainPageData = {
     latestProducts:{
         sectionName: 'Latest Products',
         content: [
-            { name: 'Absolute Anti-Age Spot Replenishing Unifying TreatmentSPF 15', price: '42.00', discount: false, discountPrice: '', availableOnStock: true },
-            { name: 'Absolue Eye Precious Cells', price: '105.00', discount: true, discountPrice: '89.00', availableOnStock: true },
-            { name: 'Total Moisture Facial Cream', price: '38.00', discount: false, discountPrice: '', availableOnStock: true },
-            { name: 'Flash Bronzer Body Gel', price: '34.50', discount: true, discountPrice: '29.00', availableOnStock: false }
+            { name: 'Absolute Anti-Age Spot Replenishing Unifying TreatmentSPF 15', price: [{ currency: '€ Euro', value: '39.42€' }, { currency: '£ Pound Sterling', value: '£33.32' }, { currency: '$ US Dollar', value: '$42.00' }], discount: false, discountPrice: [], availableOnStock: true },
+            { name: 'Absolue Eye Precious Cells', price: [{ currency: '€ Euro', value: '98.54€' }, { currency: '£ Pound Sterling', value: '£83.30' }, { currency: '$ US Dollar', value: '$105.00' }], discount: true, discountPrice: [{ currency: '€ Euro', value: '83.53€' }, { currency: '£ Pound Sterling', value: '£70.60' }, { currency: '$ US Dollar', value: '$89.00' }], availableOnStock: true },
+            { name: 'Total Moisture Facial Cream', price: [{ currency: '€ Euro', value: '35.66€' }, { currency: '£ Pound Sterling', value: '£30.15' }, { currency: '$ US Dollar', value: '$38.00' }], discount: false, discountPrice: [], availableOnStock: true },
+            { name: 'Flash Bronzer Body Gel', price: [{ currency: '€ Euro', value: '32.38€' }, { currency: '£ Pound Sterling', value: '£27.37' }, { currency: '$ US Dollar', value: '$34.50' }], discount: true, discountPrice: [{ currency: '€ Euro', value: '27.22€' }, { currency: '£ Pound Sterling', value: '£23.01' }, { currency: '$ US Dollar', value: '$29.00' }], availableOnStock: false }
         ]
     },
     bestsellersProducts: {
         sectionName: 'Bestsellers',
         content: [
-            { name: 'New Ladies High Wedge Heel Toe Thong Diamante Flip Flop Sandals', price: '26.00', discount: false, discountPrice: '', availableOnStock: true },
-            { name: 'Euphoria Men Intense Eau De Toilette Spray', price: '44.10', discount: false, discountPrice: '', availableOnStock: true },
-            { name: 'Benefit Bella Bamba', price: '28.00', discount: false, discountPrice: '', availableOnStock: true },
-            { name: 'Tropiques Minerale Loose Bronzer', price: '88.00', discount: false, discountPrice: '', availableOnStock: true }
+            { name: 'New Ladies High Wedge Heel Toe Thong Diamante Flip Flop Sandals', price: [{ currency: '€ Euro', value: '24.40€' }, { currency: '£ Pound Sterling', value: '£20.63' }, { currency: '$ US Dollar', value: '$26.00' }], discount: false, discountPrice: [], availableOnStock: true },
+            { name: 'Euphoria Men Intense Eau De Toilette Spray', price: [{ currency: '€ Euro', value: '41.39€' }, { currency: '£ Pound Sterling', value: '£34.98' }, { currency: '$ US Dollar', value: '$44.10' }], discount: false, discountPrice: [], availableOnStock: true },
+            { name: 'Benefit Bella Bamba', price: [{ currency: '€ Euro', value: '26.28€' }, { currency: '£ Pound Sterling', value: '£22.21' }, { currency: '$ US Dollar', value: '$28.00' }], discount: false, discountPrice: [], availableOnStock: true },
+            { name: 'Tropiques Minerale Loose Bronzer', price: [{ currency: '€ Euro', value: '36.13€' }, { currency: '£ Pound Sterling', value: '£30.54' }, { currency: '$ US Dollar', value: '$38.50' }], discount: false, discountPrice: [], availableOnStock: true }
         ]
     },
     specialsProducts: {
         sectionName: 'Specials',
         content: [
-            { name: 'Absolue Eye Precious Cells', price: '105.00', discount: true, discountPrice: '89.00', availableOnStock: true },
-            { name: 'Acqua Di Gio Pour Homme', price: '59.00', discount: true, discountPrice: '45.00', availableOnStock: true },
-            { name: 'BeneFit Girl Meets Pearl', price: '30', discount: true, discountPrice: '19.00', availableOnStock: false },
-            { name: 'Brunette expressions Conditioner', price: '27.00', discount: true, discountPrice: '24.00', availableOnStock: false}
+            { name: 'Absolue Eye Precious Cells', price: [{ currency: '€ Euro', value: '98.54€' }, { currency: '£ Pound Sterling', value: '£83.30' }, { currency: '$ US Dollar', value: '$105.00' }], discount: true, discountPrice: [{ currency: '€ Euro', value: '83.53€' }, { currency: '£ Pound Sterling', value: '£70.60' }, { currency: '$ US Dollar', value: '$89.00' }], availableOnStock: true },
+            { name: 'Acqua Di Gio Pour Homme', price: [{ currency: '€ Euro', value: '55.37€' }, { currency: '£ Pound Sterling', value: '£46.80' }, { currency: '$ US Dollar', value: '$59.00' }], discount: true, discountPrice: [{ currency: '€ Euro', value: '42.23€' }, { currency: '£ Pound Sterling', value: '£35.70' }, { currency: '$ US Dollar', value: '$45.00' }], availableOnStock: true },
+            { name: 'BeneFit Girl Meets Pearl', price: [{ currency: '€ Euro', value: '28.16€' }, { currency: '£ Pound Sterling', value: '£23.80' }, { currency: '$ US Dollar', value: '$30.00' }], discount: true, discountPrice: [{ currency: '€ Euro', value: '17.83€' }, { currency: '£ Pound Sterling', value: '£15.07' }, { currency: '$ US Dollar', value: '$19.00' }], availableOnStock: false },
+            { name: 'Brunette expressions Conditioner', price: [{ currency: '€ Euro', value: '25.34€' }, { currency: '£ Pound Sterling', value: '£21.42' }, { currency: '$ US Dollar', value: '$27.00' }], discount: true, discountPrice: [{ currency: '€ Euro', value: '22.52€' }, { currency: '£ Pound Sterling', value: '£19.04' }, { currency: '$ US Dollar', value: '$24.00' }], availableOnStock: false}
         ]
     } 
 }

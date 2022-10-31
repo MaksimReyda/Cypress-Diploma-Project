@@ -46,7 +46,8 @@ describe('The Main page test', function(){
             // console.log(Object.keys(result.classList))
         })
         mainPage.visitMainPage()
-            .checkOutOfStockProducts()
+            .addProductToChart()
+            // .checkOutOfStockProducts()
 
             // .checkPrice(mainPageData.featuredProducts)
             // .checkPrice(mainPageData.latestProducts)

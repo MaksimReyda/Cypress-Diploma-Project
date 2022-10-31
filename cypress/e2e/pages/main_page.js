@@ -214,6 +214,86 @@ class mainShopPage {
         return this
     }
 
+    addProductToChart(){
+
+        // let productsNames = []
+        // let prices = []
+
+        let productsData = [{}]
+
+        cy.get('.block_frame > div > div .thumbnail').each(function($el, index, $list){
+            if(!$el.find('.pricetag').children().hasClass('nostock') && index === 0){
+                cy.get($el.prev().children()).then(function(productName){
+                    // productsNames.push(productName.text().trim())
+
+                    cy.get($el.find('.price').children()).then(function(price){
+                        // prices.push(price.text().trim())
+                        productsData[index] = {
+                            name: productName.text().trim(),
+                            price: price.text().trim()
+                        }
+
+                    })
+
+                })
+
+                // cy.get($el.find('.price').children()).then(function(price){
+                //     prices.push(price.text().trim())
+                // })
+
+                cy.get($el.find('.productcart')).click()
+                // cy.get($el.find('.productcart')).click()
+
+            }
+        }).then(function(){
+
+            let chartData = [{}]
+
+            cy.get('#top_cart_product_list > div > table > tbody > tr').each(function($el, index, $list){
+                console.log($el.text())
+                // chartData.push($el.text().trim())
+                // chartData[index] = $el.text().trim()
+                cy.get($el.find('.name')).then(function(name){
+                    // chartData[index] = {
+                    //     name: name.text().trim()
+                    // }
+
+                    cy.get($el.find('.total')).then(function(total){
+
+                        chartData[index] = {
+                            name: name.text().trim(),
+                            total: total.text().trim()
+                        }
+                    })
+                    
+                })
+
+                // cy.get($el.find('.total')).then(function(total){
+                //     chartData[index] = {
+                //         total: total.text().trim()
+                //     }
+                // })
+
+            }).then(function(){
+                // console.log(chartData)
+                // console.log(productsData)
+
+                productsData.forEach(function(item){
+                    chartData.forEach(function(chartItem){
+                        expect(item.name).contain(chartItem.name)
+                        expect(item.price).contains(chartItem.total)
+                    })
+                    
+                    // console.log(item)
+                })
+
+            })
+
+        })
+
+
+    }
+
 
     checkSlide(sliderLocator, text){
         cy.get(sliderLocator).then(function(slideText){

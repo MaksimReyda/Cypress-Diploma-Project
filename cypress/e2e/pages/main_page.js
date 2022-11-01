@@ -2,6 +2,12 @@
 import {mainPageData} from '../../fixtures/input_data'
 // import topCategotyMenuComponent from '../shared_components/category_menu'
 
+function getRandomNumber(min, max) {
+    let random = Math.random() * (max - min) + min
+    return Math.floor(random);
+}
+
+
 class mainShopPage {
 
     mainShopPageLocators = {
@@ -216,24 +222,41 @@ class mainShopPage {
 
     addProductToChart(){
 
-        // let productsNames = []
-        // let prices = []
-
-        let productsData = [{}]
-
+        let productsData = []
+    
+        let randomNumber = getRandomNumber(0, 16)
+        if(randomNumber === 1 || randomNumber === 7 || randomNumber === 14){
+            randomNumber = getRandomNumber(2, 10)
+        }
+    
         cy.get('.block_frame > div > div .thumbnail').each(function($el, index, $list){
-            if(!$el.find('.pricetag').children().hasClass('nostock') && index === 0){
+            
+            console.log(randomNumber)
+            
+            if(!$el.find('.pricetag').children().hasClass('nostock') && index === randomNumber){
+
+
                 cy.get($el.prev().children()).then(function(productName){
-                    // productsNames.push(productName.text().trim())
-
-                    cy.get($el.find('.price').children()).then(function(price){
-                        // prices.push(price.text().trim())
-                        productsData[index] = {
-                            name: productName.text().trim(),
-                            price: price.text().trim()
-                        }
-
-                    })
+                    
+                    if($el.find('.price').children().hasClass('pricenew')){
+                        cy.get($el.find('.pricenew')).then(function(pricenew){
+                            productsData.push({
+                                name: productName.text().trim(),
+                                price: pricenew.text().trim(),
+                                quantity: '1'
+                            })
+                        })
+                    } else{
+                        cy.get($el.find('.price').children()).then(function(price){
+                            // prices.push(price.text().trim())
+                            productsData.push({
+                                name: productName.text().trim(),
+                                price: price.text().trim(),
+                                quantity: '1'
+                            })
+    
+                        })
+                    }
 
                 })
 
@@ -242,12 +265,14 @@ class mainShopPage {
                 // })
 
                 cy.get($el.find('.productcart')).click()
+                cy.url().should('eq', 'https://automationteststore.com/')
                 // cy.get($el.find('.productcart')).click()
 
-            }
+            } 
+
         }).then(function(){
 
-            let chartData = [{}]
+            let chartData = []
 
             cy.get('#top_cart_product_list > div > table > tbody > tr').each(function($el, index, $list){
                 console.log($el.text())
@@ -260,10 +285,19 @@ class mainShopPage {
 
                     cy.get($el.find('.total')).then(function(total){
 
-                        chartData[index] = {
-                            name: name.text().trim(),
-                            total: total.text().trim()
-                        }
+                        cy.get($el.find('.quantity')).then(function(quantity){
+                            chartData.push({
+                                name: name.text().trim(),
+                                total: total.text().trim(),
+                                quantity: quantity.text().trim()
+                            })
+                        })
+
+                        // chartData.push({
+                        //     name: name.text().trim(),
+                        //     total: total.text().trim(),
+                        //     quantity: '2'
+                        // })
                     })
                     
                 })
@@ -276,12 +310,14 @@ class mainShopPage {
 
             }).then(function(){
                 // console.log(chartData)
-                // console.log(productsData)
+                console.log(productsData)
+                console.log(chartData)
 
                 productsData.forEach(function(item){
                     chartData.forEach(function(chartItem){
                         expect(item.name).contain(chartItem.name)
                         expect(item.price).contains(chartItem.total)
+                        expect(item.quantity).contains(chartItem.quantity)
                     })
                     
                     // console.log(item)

@@ -342,15 +342,6 @@ class mainShopPage {
 
 
     checkIsChartEmpty(){
-        // cy.get('#top_cart_product_list > div').each(function($el, index, $list){
-        //     if($list.length === 0){
-                // console.log('true')
-                // return true
-        //     } else{
-                // console.log('false')
-                // return false
-        //     }
-        // })
         if(cy.get('#top_cart_product_list').find('.empty_cart')){
             console.log('true')
             return true

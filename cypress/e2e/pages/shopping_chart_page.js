@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 // import {mainPageData} from '../../fixtures/input_data'
-import { expect } from 'chai'
+
 import mainShopPage from '../pages/main_page'
 
 function getDataFromTopChart(){
@@ -69,17 +69,19 @@ class shoppingChartPage {
                                 })
                             })
                         })
+                        
                     })
                     console.log(tableData)
                 }
-            }).then(function(){
+            
                 topChart = getDataFromTopChart()
-                console.log(topChart)
+            }).then(function(){
                 tableData.forEach(function(tableDataItem){
                     topChart.forEach(function(topChartItem){
                         expect(tableDataItem.name).contains(topChartItem.name)
-                        expect(tableDataItem.price).contains(topChartItem.price)
+                        expect(tableDataItem.price).contains(topChartItem.total)
                         expect(tableDataItem.quantity).contains(topChartItem.quantity)
+                        
                     })
                 })
 

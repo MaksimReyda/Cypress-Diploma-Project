@@ -311,7 +311,7 @@ class mainShopPage {
 
             }).then(function(){
                 // console.log(chartData)
-                console.log(productsData)
+                console.log(typeof productsData)
                 console.log(chartData)
 
                 productsData.forEach(function(item){

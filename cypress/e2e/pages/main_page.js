@@ -11,6 +11,7 @@ function getRandomNumber(min, max) {
 class mainShopPage {
 
     mainShopPageLocators = {
+        navBar: '#topnav > .form-control',
         bunner: {
             slide1: 'div:nth-of-type(1) > .animate0',
             slide2: 'div:nth-of-type(2) > .animate0',
@@ -233,7 +234,7 @@ class mainShopPage {
             
             console.log(randomNumber)
             
-            if(!$el.find('.pricetag').children().hasClass('nostock') && index === randomNumber){
+            if(!$el.find('.pricetag').children().hasClass('nostock') && index === 0){
 
 
                 cy.get($el.prev().children()).then(function(productName){
@@ -327,7 +328,36 @@ class mainShopPage {
 
         })
 
+        return this
+    }
 
+    
+    checkNavigationBar(){
+
+        cy.get(this.mainShopPageLocators.navBar).each(function($el, index, $list){
+
+        })
+        return this
+    }
+
+
+    checkIsChartEmpty(){
+        // cy.get('#top_cart_product_list > div').each(function($el, index, $list){
+        //     if($list.length === 0){
+                // console.log('true')
+                // return true
+        //     } else{
+                // console.log('false')
+                // return false
+        //     }
+        // })
+        if(cy.get('#top_cart_product_list').find('.empty_cart')){
+            console.log('true')
+            return true
+        } else{
+            console.log('false')
+            return false
+        }
     }
 
 

@@ -341,7 +341,7 @@ class mainShopPage {
     }
 
 
-    checkIsChartEmpty(){
+    checkIsTopCartEmpty(){
         if(cy.get('#top_cart_product_list').find('.empty_cart')){
             console.log('true')
             return true

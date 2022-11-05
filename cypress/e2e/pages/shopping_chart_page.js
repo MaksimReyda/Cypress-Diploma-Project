@@ -136,6 +136,58 @@ class shoppingCartPage {
 
     }
 
+    removeItemFromCart(){
+        cy.getDataFromCartTable().then(function(cartTableData){
+                        
+            cy.getDataFromTopCart().then(function(topCartData){
+                
+                if(cartTableData.length === 1 && topCartData.length === 1){
+                    cy.get('.product-list tbody > tr > td:nth-of-type(7) > a').click()
+                    cy.isCartTableEmpty().then(function(isTableEmpty){
+                        if(isTableEmpty){
+                            cy.get('.contentpanel').then(function(message){
+                                expect(message.text().trim()).contains('Your shopping cart is empty!')
+                            })
+                        }                        
+                    })
+                    cy.isTopCartEmpty().then(function(isTopCartEmpty){
+                        if(isTopCartEmpty){
+                            cy.get('#top_cart_product_list > div > table').should('not.exist')
+                            cy.get('#top_cart_product_list').children().should('have.class', 'empty_cart')
+                        }
+                    })
+                } else if (cartTableData.length > 1 && topCartData.length > 1){
+                    let dataFromTableBeforeDelete = cartTableData
+                    cy.get('.product-list tbody > tr > td:nth-of-type(7) > a').each(function($el, index, $list){
+                        if(index === 0){
+                            // $el.wrap().children()
+                            cy.wrap($el).click().then(function(){
+                                console.log(dataFromTableBeforeDelete)
+                                console.log(cartTableData)
+                            })
+
+                            cy.getDataFromCartTable().then(function(newCartTableData){
+                                cy.getDataFromTopCart().then(function(newTopCartData){
+                                    expect(newCartTableData.length).to.be.eq(cartTableData.length - 1)
+                                    expect(newTopCartData.length).to.be.eq(topCartData.length - 1)
+                                
+                                    // for(let i = 0; i < cartTableData.length; i++){
+                                    //     expect(cartTableData[i].name).includes(newCartTableData[i].name)
+                                    //     expect(cartTableData[i].price).contains(newCartTableData[i].price)
+                                    //     expect(cartTableData[i].quantity).contains(newCartTableData[i].quantity)
+                                    // }
+                                })
+                            })                            
+
+                        }
+                    })
+
+                }
+            })
+        })
+        return this
+    }
+
 
     viewCart(){
         let topChart
@@ -191,7 +243,7 @@ class shoppingCartPage {
     }
 
 
-    removeItemFromCart(){
+    removeItemFromCartTEST(){
         let dataFromCartTable
         // cy.AddProductToCart(0)
         // cy.AddProductToCart(5)

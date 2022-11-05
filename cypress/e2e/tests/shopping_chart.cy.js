@@ -6,6 +6,9 @@ import shoppingCartPage from '../pages/shopping_chart_page'
 
 describe('Testing the Shopping chart page', function(){
     it("Positive scenario", function(){
+        cy.AddProductToCart(0)
+        // cy.AddProductToCart(5)
+
         shoppingCartPage
         .visitPage()
         .checkCartTable()

@@ -53,6 +53,56 @@ Cypress.Commands.add('isTopCartEmpty', function(){
 })
 
 
+Cypress.Commands.add('getDataFromTopCart', function(){
+    let chatData = []
+
+    cy.get('#top_cart_product_list > div > table > tbody > tr').each(function($el, index, $list){
+        // console.log($el.text())
+        cy.get($el.find('.name')).then(function(name){
+
+            cy.get($el.find('.total')).then(function(total){
+
+                cy.get($el.find('.quantity')).then(function(quantity){
+                    chatData.push({
+                        name: name.text().trim(),
+                        price: total.text().trim(),
+                        quantity: quantity.text().trim()
+                    })
+                })
+            })
+            
+        })
+        
+    })
+    return cy.wrap(chatData)
+})
+
+
+Cypress.Commands.add('getDataFromCartTable', function(){
+    let tableData = []
+    cy.get('.product-list tbody > tr').each(function($el, index, $list){
+        if(index !== 0){
+            console.log('++++')
+            cy.get($el.find('td:nth-of-type(2)')).then(function(productName){
+                cy.get($el.find('td:nth-of-type(4)')).then(function(price){
+                    cy.get($el.find('td:nth-of-type(5) .form-control')).invoke('val').then(function(quantity){
+                        console.log(quantity)
+                        tableData.push({
+                            name: productName.text().trim(),
+                            price: price.text().trim(),
+                            quantity: quantity
+                        })
+                    })
+                })
+                
+            })
+            console.log(tableData)
+        }
+    })
+    return cy.wrap(tableData)
+})
+
+
 Cypress.Commands.add('AddProductToCart', function (productIndex) {
     cy.visit('https://automationteststore.com/')
 

@@ -5,58 +5,56 @@
 // import { debounce } from 'cypress/types/lodash'
 import mainShopPage from '../pages/main_page'
 
-function getDataFromTopChart(){
-    let chartData = []
+// function getDataFromTopChart(){
+//     let chartData = []
 
-    cy.get('#top_cart_product_list > div > table > tbody > tr').each(function($el, index, $list){
-        // console.log($el.text())
-        cy.get($el.find('.name')).then(function(name){
+//     cy.get('#top_cart_product_list > div > table > tbody > tr').each(function($el, index, $list){
+//         // console.log($el.text())
+//         cy.get($el.find('.name')).then(function(name){
 
-            cy.get($el.find('.total')).then(function(total){
+//             cy.get($el.find('.total')).then(function(total){
 
-                cy.get($el.find('.quantity')).then(function(quantity){
-                    chartData.push({
-                        name: name.text().trim(),
-                        total: total.text().trim(),
-                        quantity: quantity.text().trim()
-                    })
-                })
-            })
+//                 cy.get($el.find('.quantity')).then(function(quantity){
+//                     chartData.push({
+//                         name: name.text().trim(),
+//                         total: total.text().trim(),
+//                         quantity: quantity.text().trim()
+//                     })
+//                 })
+//             })
             
-        })
+//         })
         
-    })
-    return chartData
-}
+//     })
+//     return chartData
+// }
 
-function isCartTableEmptyTEST(){
-    cy.get('body').then(function($body){
-        if($body.find('#cart').length === 0){
-            // console.log('CART table IS EMPTY')
-            return '+++++++++'
-        } else{
-            console.log('CART table IS NOT EMPTY')
-            cy.get('body').find('#cart').then(function(cart){
-                console.log(cart)
-            })
-            return false
-        }
+// function isCartTableEmptyTEST(){
+//     cy.get('body').then(function($body){
+//         if($body.find('#cart').length === 0){
+//             // console.log('CART table IS EMPTY')
+//             return '+++++++++'
+//         } else{
+//             console.log('CART table IS NOT EMPTY')
+//             cy.get('body').find('#cart').then(function(cart){
+//                 console.log(cart)
+//             })
+//             return false
+//         }
+//     })
+// }
 
-
-    })
-}
-
-function isTopCartEmpty(){
-    cy.get('body').then(function(body){
-        if(body.find('#top_cart_product_list > .empty_cart')){
-            console.log('TOP cart is empty')
-            return true
-        } else{
-            console.log('TOP cart is NOT empty')
-            return false
-        }
-    })
-}
+// function isTopCartEmpty(){
+//     cy.get('body').then(function(body){
+//         if(body.find('#top_cart_product_list > .empty_cart')){
+//             console.log('TOP cart is empty')
+//             return true
+//         } else{
+//             console.log('TOP cart is NOT empty')
+//             return false
+//         }
+//     })
+// }
 
 function getDataFromCartTable(){
     let tableData = []
@@ -99,27 +97,28 @@ class shoppingCartPage {
     checkCartTable(){
 
 
-        cy.isCartTableEmpty().then(function(result){
-            console.log(result)
-        })
+        cy.isCartTableEmpty().then(function(isTableEmpty){
+            cy.isTopCartEmpty().then(function(isTopCartEmpty){
 
-        cy.get('.contentpanel').then(function(message){
-            // console.log(test)
-            console.log(message.text())
-            expect(message.text().trim()).contains('Your shopping cart is empty!')
-        })
+                if(isTableEmpty && isTopCartEmpty){
+                    console.log('----------------------')
+                    cy.get('.contentpanel').then(function(message){
+                        console.log(message.text())
+                        expect(message.text().trim()).contains('Your shopping cart is empty!')
+                    })
         
-
-        if(isCartTableEmptyTEST()){
-            console.log('----------------------')
-            cy.get('.contentpanel').then(function(message){
-                console.log(message.text())
-                expect(message.text().trim()).contains('Your shopping cart is empty!')
+                    cy.get('#top_cart_product_list > div > table').should('not.exist')
+        
+                }
             })
 
-            cy.get('#top_cart_product_list > div > table').should('not.exist')
+        })
 
-        }
+        // cy.get('.contentpanel').then(function(message){
+        //     console.log(message.text())
+        //     expect(message.text().trim()).contains('Your shopping cart is empty!')
+        // })
+        
 
         return this
 

@@ -24,7 +24,6 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-
 Cypress.Commands.add('isCartTableEmpty', function(){
     cy.get('body').then(function($body){
         if($body.find('#cart').length === 0){
@@ -35,6 +34,19 @@ Cypress.Commands.add('isCartTableEmpty', function(){
             cy.get('body').find('#cart').then(function(cart){
                 console.log(cart)
             })
+            return false
+        }
+    })
+})
+
+
+Cypress.Commands.add('isTopCartEmpty', function(){
+    cy.get('body').then(function(body){
+        if(body.find('#top_cart_product_list > .empty_cart').length > 0){
+            console.log('TOP cart is empty')
+            return true
+        } else{
+            console.log('TOP cart is NOT empty')
             return false
         }
     })

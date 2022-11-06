@@ -13,6 +13,7 @@ describe('Testing the Shopping chart page', function(){
         .visitPage()
         .checkCartTable()
         .removeItemFromCart()
+        .clickCheckoutButton()
         // .viewCart()
         // .removeItemFromCart()
 

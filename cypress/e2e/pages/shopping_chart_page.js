@@ -84,7 +84,8 @@ class shoppingCartPage {
     shoppingChartPageLocators = {
         viewChart: "a[title='View Cart']",
         productListTable: '.product-list tbody > tr',
-        productName: '.product-list > .table-striped > tbody > tr > td:nth-of-type(2)'
+        productName: '.product-list > .table-striped > tbody > tr > td:nth-of-type(2)',
+        checkoutButton: ".mb20.pull-right > a[title='Checkout']"
     }
 
     visitPage(){
@@ -183,6 +184,18 @@ class shoppingCartPage {
                     })
 
                 }
+            })
+        })
+        return this
+    }
+
+
+    clickCheckoutButton(){
+        cy.getDataFromCartTable().then(function(cartTableData){
+            cy.getDataFromTopCart().then(function(topCartData){
+                if(cartTableData.length >= 1 && topCartData.length >= 1){
+                    cy.get(".mb20.pull-right > a[title='Checkout']").should('be.visible').click()
+                }              
             })
         })
         return this

@@ -1,16 +1,11 @@
 /// <reference types="cypress" />
+import {guestCheckoutPageData} from '../../fixtures/input_data'
 
-class guestCheckoutStepOne {
+class guestCheckoutPage {
 
-    generateEmail(){
-        let today = new Date()
-        let time = today.getTime()
-        let newEmail = `test${time}@mail.com`
-        console.log(time)
-        return newEmail
-    }
-
-    locators = {
+    guestCheckoutPagelocators = {
+        requiredFields: 'fieldset > div .input-group-addon',
+        inputs: 'form#guestFrm > div > fieldset > div > .col-md-6.input-group',
         firstName: 'input#guestFrm_firstname',
         lastName: 'input#guestFrm_lastname',
         email: 'input#guestFrm_email',
@@ -29,32 +24,36 @@ class guestCheckoutStepOne {
         backButton: "a[title='Back']"
     }
 
+    
 
-    fillInCheckoutForm(){
-        cy.get(this.locators.firstName).type('Test')
-        cy.get(this.locators.lastName).type('User')
-        cy.get(this.locators.email).type(this.generateEmail())
-
-
-        cy.get(this.locators.address1).type('Test address')
-        cy.get(this.locators.city).type('Lviv')
-        cy.get(this.locators.region).select(1)
-        cy.get(this.locators.zipCode).type('1234')
-
-        // cy.get(this.locators.continueBtn).click()
-        this.clickContinueButton()
-
-    }
 
     clickContinueButton(){
         cy.get(this.locators.continueBtn).contains('Continue').click()
+        return this
     }
 
     clickBackButton(){
         cy.get(this.locators.backButton).contains('Back').click()
+        return this
     }
+
+
+
+    // fillInCheckoutForm(){
+    //     cy.get(this.locators.firstName).type('Test')
+    //     cy.get(this.locators.lastName).type('User')
+    //     cy.get(this.locators.email).type(this.generateEmail())
+
+
+    //     cy.get(this.locators.address1).type('Test address')
+    //     cy.get(this.locators.city).type('Lviv')
+    //     cy.get(this.locators.region).select(1)
+    //     cy.get(this.locators.zipCode).type('1234')
+    //     this.clickContinueButton()
+
+    // }
 
 
 }
 
-module.exports = new guestCheckoutStepOne()
+module.exports = new guestCheckoutPage()

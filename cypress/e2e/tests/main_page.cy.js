@@ -2,7 +2,7 @@
 
 import mainPage from '../pages/main_page'
 import {mainPageData} from '../../fixtures/input_data'
-const HTMLParser = require('node-html-parser')
+// const HTMLParser = require('node-html-parser')
 
 
 describe('The Main page test', function(){

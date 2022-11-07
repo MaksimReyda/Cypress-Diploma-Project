@@ -71,3 +71,16 @@ export const mainPageData = {
         ]
     } 
 }
+
+
+export const guestCheckoutPageData = {
+    firstName: 'Maksym',
+    lastName: 'Guest',
+    phoneNumber: '9898989777',
+    faxNumber: '5551234567',
+    company: 'Stark industries',
+    address1: 'Test address 1231',
+    address2: '333',
+    city: 'Test City',
+    zipCode: '00061'
+}

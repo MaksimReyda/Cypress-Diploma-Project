@@ -24,6 +24,15 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+
+Cypress.Commands.add('generateEmail', function(){
+    let today = new Date()
+    let time = today.getTime()
+    let newEmail = `test${time}@mail.com`
+    // console.log(time)
+    return newEmail
+})
+
 Cypress.Commands.add('isCartTableEmpty', function(){
     cy.get('body').then(function($body){
         if($body.find('#cart').length === 0){

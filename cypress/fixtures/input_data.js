@@ -82,5 +82,14 @@ export const guestCheckoutPageData = {
     address1: 'Test address 1231',
     address2: '333',
     city: 'Test City',
-    zipCode: '00061'
+    zipCode: '00061',
+    fieldsValidationMessages:{
+        firstName: 'First Name must be greater than 3 and less than 32 characters!',
+        lastName: 'Last Name must be greater than 3 and less than 32 characters!',
+        email: 'E-Mail Address does not appear to be valid!',
+        address1: 'Address 1 must be greater than 3 and less than 128 characters!',
+        city: 'City must be greater than 3 and less than 128 characters!',
+        state: 'Please select a region / state!',
+        zipCode: 'Zip/postal code must be between 3 and 10 characters!'
+    }
 }

@@ -17,7 +17,9 @@ describe('Guest checkout page testing', function(){
         .selectGuestCheckoutRadioButton()
         .clickContinueButton()
         .checkOrderSummary()
-        
+        .openShippingAddressBlock()
+        .clickContinueButton()
+        .checkInputsValidation()
 
     })
 })

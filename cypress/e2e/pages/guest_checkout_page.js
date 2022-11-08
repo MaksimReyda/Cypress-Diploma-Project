@@ -77,6 +77,46 @@ class guestCheckoutPage {
     }
 
     
+    checkInputsValidation(){
+        cy.get('fieldset > .form-group').each(function($el, index, $list){
+            // Find required fields
+            if($el.find('.input-group-addon').children().hasClass('required')){
+                console.log('Find required')
+                // if($el.find('input').has.name('firstname')){
+                //     cy.wrap($el.find('input')).type('test')
+                // }
+                // $el.find('.input-group').children()
+                cy.wrap($el).find('.input-group').children().first().invoke('attr', 'name').then(function(attributeName){
+                    // console.log(attributeName)
+                    cy.get($el.find('.help-block')).then(function(validationText){
+                        // console.log(validationText.text())
+                        if(attributeName === 'firstname' || attributeName === 'shipping_firstname'){
+                            expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.firstName)
+                            // console.log(validationText.text())
+                        } else if(attributeName === 'lastname' || attributeName === 'shipping_lastname'){
+                            expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.lastName)
+                        } else if(attributeName === 'email'){
+                            expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.email)
+                        } else if(attributeName === 'address_1' || attributeName === 'shipping_address_1'){
+                            expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.address1)
+                        } else if(attributeName === 'city' || attributeName === 'shipping_city'){
+                            expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.city)
+                        } else if(attributeName === 'guestFrm_zone_id' || attributeName === 'guestFrm_shipping_zone_id'){
+                            expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.state)
+                        } else if(attributeName === 'postcode' || attributeName === 'shipping_postcode'){
+                            expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.zipCode)
+                        }
+                    })
+                })
+            }
+        })
+        return this
+    }
+
+    openShippingAddressBlock(){
+        cy.get('.checkbox').click()
+        return this
+    }
 
 
     clickContinueButton(){

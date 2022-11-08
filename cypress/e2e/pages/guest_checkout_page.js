@@ -6,6 +6,7 @@ class guestCheckoutPage {
     guestCheckoutPagelocators = {
         requiredFields: 'fieldset > div .input-group-addon',
         inputs: 'form#guestFrm > div > fieldset > div > .col-md-6.input-group',
+        guestCheckoutRadioButton: 'form#accountFrm > fieldset > div:nth-of-type(2) > label',
         firstName: 'input#guestFrm_firstname',
         lastName: 'input#guestFrm_lastname',
         email: 'input#guestFrm_email',
@@ -24,16 +25,67 @@ class guestCheckoutPage {
         backButton: "a[title='Back']"
     }
 
+    visitGuestCheckoutPage(){
+        cy.get('https://automationteststore.com/index.php?rt=account/login')
+        cy.get('.maintext').then(function(title){
+            expect(title).contains('Account Login')
+        })
+        return this
+    }
+
+
+    selectGuestCheckoutRadioButton(){
+        cy.get(this.guestCheckoutPagelocators.guestCheckoutRadioButton).click()
+        return this
+    }
+
+
+    checkOrderSummary(){
+        cy.getDataFromTopCart().then(function(topCartData){
+            let orderSummaryData = []
+            cy.get('.sidewidt > table:nth-of-type(1) > tbody > tr').each(function($el, index, $list){
+                // cy.get($el)
+                console.log($el.text())
+                cy.get($el.find('.valign_top').find('a')).then(function(productName){
+                    console.log(productName.text().trim())
+                    cy.get($el.find('.valign_top').find('b')).then(function(productPrice){
+
+                        cy.get($el.find('.valign_top')).then(function(quantity){
+
+                            let newString = quantity.text().charAt(0)
+
+                            orderSummaryData.push({
+                                name: productName.text().trim(),
+                                price: productPrice.text().trim(),
+                                quantity: newString
+                            })
+
+                        })
+                    })
+                })
+
+            }).then(function(){
+                console.log(orderSummaryData)
+                for(let i = 0; i < orderSummaryData.length; i++){
+                    expect(orderSummaryData[i].name).contains(topCartData[i].name)
+                    expect(orderSummaryData[i].price).contains(topCartData[i].price)
+                    expect(orderSummaryData[i].quantity).contains(topCartData[i].quantity)
+                }
+            })
+        })
+        return this
+    }
+
     
 
 
     clickContinueButton(){
-        cy.get(this.locators.continueBtn).contains('Continue').click()
+        cy.get(this.guestCheckoutPagelocators.continueBtn).contains('Continue').click()
         return this
     }
 
     clickBackButton(){
-        cy.get(this.locators.backButton).contains('Back').click()
+        cy.get(this.guestCheckoutPagelocators.backButton).contains('Back').click()
         return this
     }
 

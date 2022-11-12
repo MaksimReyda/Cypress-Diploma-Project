@@ -93,3 +93,8 @@ export const guestCheckoutPageData = {
         zipCode: 'Zip/postal code must be between 3 and 10 characters!'
     }
 }
+
+
+export const checkoutConfirmationData = {
+    checkBreadcrumbs: ['Home', 'Basket', 'Guest Checkout - Step 1', 'Guest Checkout - Step 2', 'Confirm']
+}

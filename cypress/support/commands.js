@@ -62,6 +62,59 @@ Cypress.Commands.add('isTopCartEmpty', function(){
 })
 
 
+Cypress.Commands.add('isShippingDetailsVisable', function(){
+    cy.get('#shipping_details').invoke('attr', 'style').then(function(style){
+        // console.log(style)
+        if(style === 'display:none;'){
+            // Shippping details are not visible
+            console.log(style)
+            return false
+        } else{
+            // Shippping details are visible
+            console.log(style)
+            return true
+        }
+    })
+})
+
+
+Cypress.Commands.add('getTagName', function(selector){
+    cy.get(selector).then(function(element){
+        let tagName = element.prop('tagName')
+        return tagName
+    })
+})
+
+
+Cypress.Commands.add('isEmailFormatValied', function(selector){
+    cy.get(selector).then(function(element){
+        
+    })
+})
+
+
+Cypress.Commands.add('isFieldEmpty', function(selector){
+
+    cy.getTagName(selector).then(function(tagName){
+        if(tagName === 'INPUT'){
+            cy.get(selector).invoke('attr', 'value').then(function(attributeValue){
+                console.log(attributeValue)
+                console.log(attributeValue.length)
+                if(attributeValue.length === 0){
+                    console.log('Input is empty')
+                    // return true
+                    return attributeValue.length
+                } else{
+                    console.log('Input is NOT empty')
+                    // return false
+                    return attributeValue.length
+                }
+            })
+        }
+    })
+
+})
+
 Cypress.Commands.add('getDataFromTopCart', function(){
     let chatData = []
 

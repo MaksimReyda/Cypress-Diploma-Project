@@ -8,7 +8,7 @@ import {checkoutConfirmationData} from '../../fixtures/input_data'
 describe('Checkout confirmation page testing', function(){
     it('Positive scenario', function(){
         cy.AddProductToCart(0)
-        // cy.AddProductToCart(4)
+        cy.AddProductToCart(4)
 
         shoppingCartPage
         .visitPage()
@@ -32,5 +32,6 @@ describe('Checkout confirmation page testing', function(){
 
         checkoutConfirmationPage
         .checkBreadcrumbs()
+        .checkItemsInYourCart()
     })  
 })

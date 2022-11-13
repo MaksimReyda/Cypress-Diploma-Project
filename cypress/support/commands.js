@@ -165,6 +165,34 @@ Cypress.Commands.add('getDataFromCartTable', function(){
 })
 
 
+Cypress.Commands.add('GetDataFromOrderSummaryBlock', function(){
+
+    let orderSummaryData = []
+    cy.get('.sidewidt > table:nth-of-type(1) > tbody > tr').each(function ($el, index, $list) {
+        cy.get($el.find('.valign_top').find('a')).then(function (productName) {
+            console.log(productName.text().trim())
+            cy.get($el.find('.valign_top').find('b')).then(function (productPrice) {
+
+                cy.get($el.find('.valign_top')).then(function (quantity) {
+
+                    let newString = quantity.text().charAt(0)
+
+                    orderSummaryData.push({
+                        name: productName.text().trim(),
+                        price: productPrice.text().trim(),
+                        quantity: newString
+                    })
+
+                })
+            })
+        })
+
+    })
+
+    return cy.wrap(orderSummaryData)
+
+})
+
 Cypress.Commands.add('AddProductToCart', function (productIndex) {
     cy.visit('https://automationteststore.com/')
 

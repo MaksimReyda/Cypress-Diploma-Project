@@ -23,28 +23,25 @@ describe('The Main page test', function(){
 
     it.only('', function(){
         let section = 'Featured'
-        cy.request('GET', 'https://automationteststore.com/').then(function(response){
-            // console.log(response.body.Items)
-            // result = response.body.Items
-            // console.log(response)
-            result = HTMLParser.parse(response.body)
-            // console.log(result)
+        // cy.request('GET', 'https://automationteststore.com/').then(function(response){
+        //     // console.log(response.body.Items)
+        //     // result = response.body.Items
+        //     // console.log(response)
+        //     result = HTMLParser.parse(response.body)
+        //     // console.log(result)
 
-            function recursy(element){
-                element.childNodes.forEach(node => {
-                    // console.log(node)
-                    if(element.childNodes.lenght > 1){
-                        recursy(node)
-                    }
-                });
-            }
+        //     function recursy(element){
+        //         element.childNodes.forEach(node => {
+        //             // console.log(node)
+        //             if(element.childNodes.lenght > 1){
+        //                 recursy(node)
+        //             }
+        //         });
+        //     }
 
-            recursy(result)
+        //     recursy(result)
 
-            // console.log(Object.keys(result))
-            // console.log(result.classList)
-            // console.log(Object.keys(result.classList))
-        })
+        // })
         mainPage.visitMainPage()
             .checkCategories()
             .checkSubcategories()

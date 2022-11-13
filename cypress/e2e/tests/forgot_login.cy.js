@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import forgotLoginPage from '../pages/forgot_login_page.cy'
+import forgotLoginPage from '../pages/forgot_login_page'
 import {loginData} from '../../fixtures/input_data'
 
 

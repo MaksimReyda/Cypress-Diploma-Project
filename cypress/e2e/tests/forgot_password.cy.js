@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import forgotPasswordPage from '../pages/forgot_password_page.cy'
+import forgotPasswordPage from '../pages/forgot_password_page'
 import {loginData} from '../../fixtures/input_data'
 
 describe('Test forgot password page', function(){

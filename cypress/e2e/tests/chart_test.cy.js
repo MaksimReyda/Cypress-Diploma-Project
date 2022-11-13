@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
-import createAccountPage from "../e2e/pages/create_account.cy"
-import guestCheckoutStepOne from "./pages/guest_checkout_step_1.cy"
+// import createAccountPage from "../e2e/pages/create_account.cy"
+// import guestCheckoutStepOne from "./pages/guest_checkout_step_1.cy"
 
 const locators = {
     firstAddToChartButton: ".block_frame.block_frame_featured > div > div:nth-of-type(1) > .thumbnail > .jumbotron.pricetag > a[title='Add to Cart']",
@@ -9,10 +9,7 @@ const locators = {
     itemNameformShoppingChartPage: '.cart-info.container-fluid.product-list > .table.table-bordered.table-striped > tbody > tr:nth-of-type(2) > td:nth-of-type(2)'
 }
 
-function additemToChart(itemLocator){
-    // cy.get(itemLocator).click()
 
-}
 
 beforeEach(function(){
     cy.visit('https://automationteststore.com/')
@@ -61,7 +58,7 @@ describe('The Chart tests', function(){
         cy.get("button[title='Continue']").click()
 
         // createAccountPage.createNewAccount()
-        guestCheckoutStepOne.fillInCheckoutForm()
+        // guestCheckoutStepOne.fillInCheckoutForm()
 
         
 

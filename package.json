@@ -6,12 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "triggerAllTests-headless": "npx cypress run",
+    "triggerAllTests-headed": "npx cypress run --headed",
+    "triggerAllTests-chrome": "npx cypress run --browser chrome",
     "mochawesome-merge": "npx mochawesome-merge cypress/results/mochawesome/*.json > mochawesome.json && npx marge mochawesome.json",
     "delete-results": "rm -rf cypress/results/* || true",
     "delete-mochawesome-report": "rm -rf mochawesome-report/* || true",
     "delete-mochawesome-json": "rm -rf mochawesome.json",
-    "cypress-regression-pack": "npm run delete-results && npm run delete-mochawesome-report && npm run delete-mochawesome-json && npm run triggerAllTests-headless && npm run mochawesome-merge",
-    "cypress-regression-pack2": "npm run delete-results && npm run delete-mochawesome-report && npm run triggerAllTests-headless && npm run mochawesome-merge"
+    "cypress-regression-pack": "npm run delete-results && npm run delete-mochawesome-report && npm run delete-mochawesome-json && npm run triggerAllTests-headless && npm run mochawesome-merge"
   },
   "author": "",
   "license": "ISC",

@@ -58,7 +58,7 @@ export const mainPageData = {
             { name: 'New Ladies High Wedge Heel Toe Thong Diamante Flip Flop Sandals', price: [{ currency: '€ Euro', value: '24.40€' }, { currency: '£ Pound Sterling', value: '£20.63' }, { currency: '$ US Dollar', value: '$26.00' }], discount: false, discountPrice: [], availableOnStock: true },
             { name: 'Euphoria Men Intense Eau De Toilette Spray', price: [{ currency: '€ Euro', value: '41.39€' }, { currency: '£ Pound Sterling', value: '£34.98' }, { currency: '$ US Dollar', value: '$44.10' }], discount: false, discountPrice: [], availableOnStock: true },
             { name: 'Benefit Bella Bamba', price: [{ currency: '€ Euro', value: '26.28€' }, { currency: '£ Pound Sterling', value: '£22.21' }, { currency: '$ US Dollar', value: '$28.00' }], discount: false, discountPrice: [], availableOnStock: true },
-            { name: 'Tropiques Minerale Loose Bronzer', price: [{ currency: '€ Euro', value: '36.13€' }, { currency: '£ Pound Sterling', value: '£30.54' }, { currency: '$ US Dollar', value: '$38.50' }], discount: false, discountPrice: [], availableOnStock: true }
+            { name: 'Tropiques Minerale Loose Bronzer', price: [{ currency: '€ Euro', value: '35.19€' }, { currency: '£ Pound Sterling', value: '£29.75' }, { currency: '$ US Dollar', value: '$37.50' }], discount: false, discountPrice: [], availableOnStock: true }
         ]
     },
     specialsProducts: {

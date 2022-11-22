@@ -14,7 +14,22 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+
 import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+let orderDetails
+
+module.exports = (on, config) => {
+    on('taks', {
+        setOrderDetails: (order) => {
+            return (orderDetails = order)
+        },
+
+        getOrderDetails: () => {
+            return orderDetails
+        }
+    })
+}

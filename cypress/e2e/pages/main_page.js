@@ -234,7 +234,7 @@ class mainShopPage {
             
             console.log(randomNumber)
             
-            if(!$el.find('.pricetag').children().hasClass('nostock') && index === 0){
+            if(!$el.find('.pricetag').children().hasClass('nostock') && index === randomNumber){
 
 
                 cy.get($el.prev().children()).then(function(productName){
@@ -266,7 +266,7 @@ class mainShopPage {
                 // })
 
                 cy.get($el.find('.productcart')).click()
-                cy.url().should('eq', 'https://automationteststore.com/')
+                cy.url().should('eq', 'https://automationteststore.com/') 
                 // cy.get($el.find('.productcart')).click()
 
             } 

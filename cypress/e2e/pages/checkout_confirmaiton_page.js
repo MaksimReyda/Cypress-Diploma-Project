@@ -6,7 +6,8 @@ class checkoutConfirmationPage {
     checkoutConfirmationPageLocators = {
         confirmOrderButton: "[title='Confirm Order']",
         breadcrumbs: '.breadcrumb > li',
-        itemsInYourCart: '.confirm_products.table > tbody > tr'
+        itemsInYourCart: '.confirm_products.table > tbody > tr',
+        invoicePage: 'p:nth-of-type(3) > a'
     }
 
     checkBreadcrumbs(){
@@ -49,6 +50,23 @@ class checkoutConfirmationPage {
                     expect(itemsInYourCart[i].quantity).contains(orderSummatyData[i].quantity)
                 }
             })
+        })
+
+        return this
+    }
+
+    openInvoicePage(){
+        cy.get(this.checkoutConfirmationPageLocators.invoicePage)
+            .should('contain', 'invoice page')
+            .click()
+        
+
+        cy.get('.contentpanel .table-responsive:nth-of-type(1) tr td').each(function($el, index, $list){
+            if(index === 0){
+                console.log($el.text())
+                console.log($el.find('b:nth-of-type(1)').text())
+                console.log($el.find('b:nth-of-type(1)').next().text())
+            }
         })
 
         return this

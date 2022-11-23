@@ -50,46 +50,71 @@ class orderDetailsPage {
                             })
 
                         })
-
-                        // cy.get($el.find('input')).invoke('attr', 'name').then(function(attributeName){
-                        //     console.log(attributeName)
-                        // })
-
-                        // cy.get('#CheckOrderFrm .input-group input').invoke('attr', 'name').then(function(attributeName){
-                        //     console.log(attributeName)
-                        // })
                     }
                 })
+            } else{
+                cy.get('.contentpanel')
             }
         })
     }
 
 
-    fillOrderIdInput(){
-        cy.task('getOrderDetails').then(function(orderDetails){
-            console.log(orderDetails)
+    fillOrderIdInput(isIdReal, isValid){
+        if(isIdReal && isValid){
+            cy.task('getOrderDetails').then(function(orderDetails){
+                console.log(orderDetails)
+    
+                cy.get('input#CheckOrderFrm_order_id')
+                    .click()
+                    .clear()
+                    .type(orderDetails.orderId)
+    
+            })
 
+        } else if(!isIdReal, isValid){
             cy.get('input#CheckOrderFrm_order_id')
                 .click()
                 .clear()
-                .type(orderDetails.orderId)
+                .type('12311')
 
-        })
+        } else if(!isIdReal, !isValid){
+            cy.get('input#CheckOrderFrm_order_id')
+            .click()
+            .clear()
+            .type('yquwyquw')
+        }
+
 
         return this
     }
 
 
-    fillEmailInput(){
-        cy.task('getOrderDetails').then(function(orderDetails){
-            console.log(orderDetails)
+    fillEmailInput(isEmailReal, isValid) {
 
+        if (isEmailReal && isValid) {
+            cy.task('getOrderDetails').then(function (orderDetails) {
+                console.log(orderDetails)
+
+                cy.get('input#CheckOrderFrm_email')
+                    .click()
+                    .clear()
+                    .type(orderDetails.orderEmail)
+
+            })
+
+        } else if(!isEmailReal && isValid) {
             cy.get('input#CheckOrderFrm_email')
                 .click()
                 .clear()
-                .type(orderDetails.orderEmail)
+                .type('ajhajsjjj@mail.com')
 
-        })
+        } else if(!isEmailReal && !isValid){
+            cy.get('input#CheckOrderFrm_email')
+            .click()
+            .clear()
+            .type('ajhajsjjj@mai')
+
+        }
 
         return this
     }

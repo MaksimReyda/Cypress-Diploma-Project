@@ -39,8 +39,8 @@ describe('Test order details page',  function(){
         .openOrderDetailsPage()
         .checkOrderDetails()
         // .checkFormValidation()
-        // .fillOrderIdInput()
-        // .fillEmailInput()
+        .fillOrderIdInput(true, true)
+        .fillEmailInput(false, true)
         .clickContinueButton()
         .checkFormValidation()
 

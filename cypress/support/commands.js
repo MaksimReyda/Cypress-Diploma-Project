@@ -48,6 +48,24 @@ Cypress.Commands.add('isCartTableEmpty', function(){
     })
 })
 
+Cypress.Commands.add('isOrderDetailsFormVisible', function(){
+    cy.get('body').then(function(body){
+        if(body.find('#CheckOrderFrm > .form-horizontal.registerbox').length == 1){
+            console.log('ORDER DETAILS are VISIBLE')
+            // cy.log($body.find('#CheckOrderFrm > .form-horizontal.registerbox').length)
+            return true
+        } else{
+            console.log('ORDER DETAILS are NOT VISIBLE')
+            return false
+        }
+    })
+})
+
+Cypress.Commands.add('getElementAttribute', function(selector, attributeName){
+    cy.get(selector).invoke('attr', attributeName).then(function(attribute){
+        return attribute
+    })
+})
 
 Cypress.Commands.add('isTopCartEmpty', function(){
     cy.get('body').then(function(body){

@@ -20,16 +20,16 @@ import './commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-let orderDetails
+// let orderDetails
 
-module.exports = (on, config) => {
-    on('taks', {
-        setOrderDetails: (order) => {
-            return (orderDetails = order)
-        },
+// module.exports = (on, config) => {
+//     on('task', {
+//         setOrderDetails: (order) => {
+//             return (orderDetails = order)
+//         },
 
-        getOrderDetails: () => {
-            return orderDetails
-        }
-    })
-}
+//         getOrderDetails: () => {
+//             return orderDetails
+//         }
+//     })
+// }

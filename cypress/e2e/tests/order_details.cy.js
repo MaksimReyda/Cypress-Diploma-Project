@@ -34,5 +34,16 @@ describe('Test order details page',  function(){
         .checkItemsInYourCart()
         .clickConfirmOrderButton()
         .openInvoicePage()
+
+        orderDetailsPage
+        .openOrderDetailsPage()
+        .checkOrderDetails()
+        // .checkFormValidation()
+        // .fillOrderIdInput()
+        // .fillEmailInput()
+        .clickContinueButton()
+        .checkFormValidation()
+
+
     })
 })

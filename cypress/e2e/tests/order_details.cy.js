@@ -11,6 +11,7 @@ import {checkoutConfirmationData} from '../../fixtures/input_data'
 describe('Test order details page',  function(){
 
     this.beforeEach(function(){
+        cy.AddProductToCart(0)
         cy.AddProductToCart(4)
 
         shoppingCartPage

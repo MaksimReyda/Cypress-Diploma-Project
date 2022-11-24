@@ -31,6 +31,14 @@ class orderDetailsPage {
                 expect(orderTableData.orderStatus).contains(orderDetails.orderStatus)
                 expect(orderTableData.shippingAddress).contains(orderDetails.shippingAddress)
                 expect(orderTableData.paymentAddress).contains(orderDetails.paymentAddress)
+
+                for(let i = 0; i < orderDetails.tableData.length; i++){
+                    expect(orderTableData.tableData[i].productModel).contains(orderDetails.tableData[i].productModel)
+                    expect(orderTableData.tableData[i].productName).contains(orderDetails.tableData[i].productName)
+                    expect(orderTableData.tableData[i].quantity).contains(orderDetails.tableData[i].quantity)
+                    expect(orderTableData.tableData[i].total).contains(orderDetails.tableData[i].total)
+                    expect(orderTableData.tableData[i].unitPrice).contains(orderDetails.tableData[i].unitPrice)
+                }
             })
 
 

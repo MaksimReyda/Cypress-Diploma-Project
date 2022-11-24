@@ -76,6 +76,7 @@ Cypress.Commands.add('isOrderDetailsTableVisible', function(){
 
 Cypress.Commands.add('getDataFromOrderDetailsTable', function(){
     let orderDetails
+    let tableData = []
     cy.get('.contentpanel .table-responsive:nth-of-type(1) tr td').each(function($el, index, $list){
         
 
@@ -120,9 +121,36 @@ Cypress.Commands.add('getDataFromOrderDetailsTable', function(){
     }).then(function(){
 
         // return cy.wrap(orderDetails)
+        cy.get('.invoice_products.table.table-bordered.table-striped > tbody > tr').each(function($el, index, $list){
+            if(index !== 0){
+                cy.get($el.find('td:nth-of-type(2)')).then(function(productName){
+                    cy.get($el.find('td:nth-of-type(3)')).then(function(productModel){
+                        cy.get($el.find('td:nth-of-type(4)')).then(function(quantity){
+                            cy.get($el.find('td:nth-of-type(5)')).then(function(unitPrice){
+                                cy.get($el.find('td:nth-of-type(6)')).then(function(total){
+                                    tableData.push({
+                                        productName: productName.text().trim(),
+                                        productModel: productModel.text().trim(),
+                                        quantity: quantity.text().trim(),
+                                        unitPrice: unitPrice.text().trim(),
+                                        total: total.text().trim()
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            }
+        }).then(function(){
+            orderDetails.tableData = tableData
+        })
         console.log(orderDetails)
         return cy.wrap(orderDetails)
     })
+    // .then(function(){
+    //     console.log(orderDetails)
+    //     return cy.wrap(orderDetails)
+    // })
 
 })
 

@@ -61,41 +61,11 @@ class checkoutConfirmationPage {
             .click()
         
 
-        cy.get('.contentpanel .table-responsive:nth-of-type(1) tr td').each(function($el, index, $list){
-            let orderDetails
+        cy.getDataFromOrderDetailsTable().then(function(orderDetails){
 
-            if(index === 0){
-                console.log($el.text())
-                console.log($el.find('b:nth-of-type(1)').text().trim())
-                // console.log($el.find('b:nth-of-type(1)').next().text())
-
-
-                let orderId = $el.text().substring($el.text().search('#') + 1, $el.text().search('Status') - 1).trim()
-                
-                let status = $el.text().substring($el.text().search('Status') + 6, $el.text().search('E-Mail') - 1).trim()
-                
-                let email = $el.text().substring($el.text().search('E-Mail') + 6, $el.text().search('Shipping Method') - 1).trim()
-
-                let shippingMethod = $el.text().substring($el.text().search('Shipping Method') + 15, $el.text().search('Payment Method') - 1).trim()
-
-                let paymentMetdod = $el.text().substring($el.text().search('Payment Method') + 14).trim()
-                cy.log(orderId)
-                cy.log(status)
-                cy.log(email)
-                cy.log(shippingMethod)
-                cy.log(paymentMetdod)
-                
-                orderDetails = {
-                    orderId: orderId,
-                    orderStatus: status,
-                    orderEmail: email,
-                    orderShippingMethod: shippingMethod,
-                    orderPaymentMethod: paymentMetdod
-                }
-
-                cy.task('setOrderDetails', orderDetails)
-            }
+            cy.task('setOrderDetails', orderDetails)
         })
+
 
         return this
     }

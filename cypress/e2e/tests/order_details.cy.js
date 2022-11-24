@@ -9,7 +9,8 @@ import {checkoutConfirmationData} from '../../fixtures/input_data'
 
 
 describe('Test order details page',  function(){
-    it('', function(){
+
+    this.beforeEach(function(){
         cy.AddProductToCart(4)
 
         shoppingCartPage
@@ -34,6 +35,25 @@ describe('Test order details page',  function(){
         .checkItemsInYourCart()
         .clickConfirmOrderButton()
         .openInvoicePage()
+
+    })
+
+
+    it.only('Positive scenario', function(){
+
+        orderDetailsPage
+        .openOrderDetailsPage()
+        // .checkFormValidation()
+        .fillOrderIdInput(true, true)
+        .fillEmailInput(true, true)
+        .clickContinueButton()
+        .checkFormValidation()
+        .checkOrderDetails()
+
+
+    })
+
+    it('Negative scenairo', function(){
 
         orderDetailsPage
         .openOrderDetailsPage()

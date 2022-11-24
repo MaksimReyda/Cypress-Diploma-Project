@@ -22,6 +22,17 @@ class orderDetailsPage {
         cy.task('getOrderDetails').then(function(orderDetails){
             console.log(orderDetails)
 
+            cy.getDataFromOrderDetailsTable().then(function(orderTableData){
+                console.log(orderTableData)
+                expect(orderTableData.orderId).contains(orderDetails.orderId)
+                expect(orderTableData.orderEmail).contains(orderDetails.orderEmail)
+                expect(orderTableData.orderPaymentMethod).contains(orderDetails.orderPaymentMethod)
+                expect(orderTableData.orderShippingMethod).contains(orderDetails.orderShippingMethod)
+                expect(orderTableData.orderStatus).contains(orderDetails.orderStatus)
+                expect(orderTableData.shippingAddress).contains(orderDetails.shippingAddress)
+                expect(orderTableData.paymentAddress).contains(orderDetails.paymentAddress)
+            })
+
 
         })
 
@@ -53,9 +64,18 @@ class orderDetailsPage {
                     }
                 })
             } else{
-                cy.get('.contentpanel')
+                console.log('-------------------')
+                cy.isOrderDetailsTableVisible().then(function(isTableVisible){
+                    if(!isTableVisible){
+                        cy.get('.contentpanel').then(function(elementText){
+                            expect(elementText.text().trim()).contains('The order you have requested could not be found!')
+                        })
+                    }
+                })
             }
         })
+
+        return this
     }
 
 

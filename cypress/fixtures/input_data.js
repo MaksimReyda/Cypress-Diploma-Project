@@ -94,6 +94,35 @@ export const guestCheckoutPageData = {
     }
 }
 
+export const newUserData = {
+    firstName: 'Maksym',
+    lastName: 'Reida',
+    phoneNumber: '9898989898',
+    faxNumber: '3434353',
+
+    companyName: 'Test company name',
+    address1: 'Address 1',
+    address2: '1234',
+    city: 'Test city',
+    zipCode: '69061',
+
+
+    loginName: 'Maksym',
+    password: 'Testzuum12!',
+
+    fieldsValidationMessages: {
+        firstName: 'First Name must be between 1 and 32 characters!',
+        lastName: 'Last Name must be between 1 and 32 characters!',
+        email: 'Email Address does not appear to be valid!',
+        address1: 'Address 1 must be between 3 and 128 characters!',
+        city: 'City must be between 3 and 128 characters!',
+        state: 'Please select a region / state!',
+        zipCode: 'Zip/postal code must be between 3 and 10 characters!',
+        loginName: 'Login name must be alphanumeric only and between 5 and 64 characters!',
+        password: 'Password must be between 4 and 20 characters!'
+    }
+}
+
 
 export const checkoutConfirmationData = {
     checkBreadcrumbs: ['Home', 'Basket', 'Guest Checkout - Step 1', 'Guest Checkout - Step 2', 'Confirm']

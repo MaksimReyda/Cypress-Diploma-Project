@@ -1,5 +1,9 @@
 /// <reference types="cypress" />
 
+import {newUserData} from '../../fixtures/input_data'
+
+
+
 class newUserCheckoutPage {
     newUserCheckoutPageLocators = {
 
@@ -18,7 +22,78 @@ class newUserCheckoutPage {
 
         loginName: 'input#AccountFrm_loginname',
         password: 'input#AccountFrm_password',
-        confirmPassword: 'input#AccountFrm_confirm'
+        confirmPassword: 'input#AccountFrm_confirm',
+
+        inputs: 'fieldset > .form-group',
+        continueButton: "button[title='Continue']"
+    }
+
+
+    checkInputValidation(){
+        cy.get(this.newUserCheckoutPageLocators.inputs).each(function($el, index, $list){
+            if($el.find('.input-group-addon').children().hasClass('required')){
+                console.log('Required field')
+
+                cy.getTagName($el.find('.input-group').children()).then(function(tagName){
+                    // console.log(tagName)
+                    if(tagName === 'INPUT'){
+
+                        if($el.hasClass('has-error')){
+
+                            cy.getElementAttribute($el.find('input'), 'value').then(function(inputValue){
+                                
+                                
+                                cy.getElementAttribute($el.find('input'), 'name').then(function(inputName){
+                                    console.log(inputValue)
+                                    console.log(inputName)
+
+                                    cy.get($el.find('.help-block')).then(function(validationText){
+
+                                        // inputName === 'firstname' && inputValue < 3 || inputValue > 32 ? 
+                                        //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.firstName) :
+                                        //     expect(validationText.text().trim()).contains('')
+                                            
+                                        
+                                        // inputName === 'lastname' && inputValue < 3 || inputValue > 32 ? 
+                                        //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.lastName) :
+                                        //     expect(validationText.text().trim()).contains('')
+
+                                        if(inputName === 'firstname' && inputValue < 3 || inputValue > 32){
+                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.firstName)
+                                        }
+                                        else if(inputName === 'lastname' && inputValue < 3 || inputValue > 32){
+                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.lastName)
+                                        }
+                                         
+
+                                    })
+
+                                     
+                                    
+                                })
+
+                            })
+
+                        }
+
+                    }
+
+                })
+
+
+                // else if (index === 1){
+                //     cy.getElementAttribute($el.find('input'), 'value').then(function(inputValue){
+                        // cy.getElementAttribute($el.find('input'), 'name').then(function(name){
+                        //     console.log(inputValue)
+                        //     console.log(name)
+                        // })
+                        
+                //     })
+                // }
+            }
+        })
+
+        return this
     }
 
 
@@ -146,6 +221,13 @@ class newUserCheckoutPage {
         .clear()
         .type(`Maksym${time}`)
 
+        return this
+    }
+
+    continueButtonClick(){
+        cy.get(this.newUserCheckoutPageLocators.continueButton)
+            .click()
+            
         return this
     }
 

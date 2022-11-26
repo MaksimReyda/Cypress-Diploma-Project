@@ -22,8 +22,11 @@ describe('New user checkout test', function(){
         .clickContinueButton()
 
         newUserCheckoutPage
-        .fillFirstNameInput(newUserData.firstName)
+        // .fillFirstNameInput(newUserData.firstName)
         .fillLastNameInput(newUserData.lastName)
+        .checkInputValidation()
+        .continueButtonClick()
+        .checkInputValidation()
         
     })
 })

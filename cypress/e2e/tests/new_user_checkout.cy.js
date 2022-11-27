@@ -8,8 +8,11 @@ import shoppingCartPage from '../pages/shopping_chart_page'
 
 describe('New user checkout test', function(){
 
+    let isEmailValid = true
+
 
     it('Positive scenarion', function(){
+
 
         cy.AddProductToCart(0)
         // cy.AddProductToCart(4)
@@ -23,8 +26,11 @@ describe('New user checkout test', function(){
 
         newUserCheckoutPage
         // .fillFirstNameInput(newUserData.firstName)
-        .fillLastNameInput(newUserData.lastName)
-        .checkInputValidation()
+        .fillFirstNameInput('012345678901234567890123456789123')
+        // .fillLastNameInput(newUserData.lastName)
+        .fillLastNameInput('eq1')
+        .fillEmailInput(!isEmailValid)
+        .fillRegionSelect(0)
         .continueButtonClick()
         .checkInputValidation()
         

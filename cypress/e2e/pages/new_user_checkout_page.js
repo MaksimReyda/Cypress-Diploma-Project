@@ -30,15 +30,17 @@ class newUserCheckoutPage {
 
 
     checkInputValidation(){
+        let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
         cy.get(this.newUserCheckoutPageLocators.inputs).each(function($el, index, $list){
             if($el.find('.input-group-addon').children().hasClass('required')){
                 console.log('Required field')
 
                 cy.getTagName($el.find('.input-group').children()).then(function(tagName){
-                    // console.log(tagName)
-                    if(tagName === 'INPUT'){
+                    console.log(tagName)
+                    if(tagName === 'INPUT' || tagName === 'SELECT'){
 
-                        if($el.hasClass('has-error')){
+                        // if($el.hasClass('has-error')){
 
                             cy.getElementAttribute($el.find('input'), 'value').then(function(inputValue){
                                 
@@ -49,22 +51,45 @@ class newUserCheckoutPage {
 
                                     cy.get($el.find('.help-block')).then(function(validationText){
 
-                                        // inputName === 'firstname' && inputValue < 3 || inputValue > 32 ? 
-                                        //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.firstName) :
-                                        //     expect(validationText.text().trim()).contains('')
-                                            
-                                        
-                                        // inputName === 'lastname' && inputValue < 3 || inputValue > 32 ? 
-                                        //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.lastName) :
-                                        //     expect(validationText.text().trim()).contains('')
-
-                                        if(inputName === 'firstname' && inputValue < 3 || inputValue > 32){
+                                        if(inputName === 'firstname' && inputValue.length < 3 || inputValue.length > 32){
+                                            cy.wrap($el).should('have.class', 'has-error')
                                             expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.firstName)
                                         }
-                                        else if(inputName === 'lastname' && inputValue < 3 || inputValue > 32){
+                                        else if(inputName === 'lastname' && inputValue.length < 3 || inputValue.length > 32){
+                                            cy.wrap($el).should('have.class', 'has-error')
                                             expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.lastName)
                                         }
-                                         
+                                        else if(inputName === 'email' && !inputValue.match(emailFormat)){
+                                            cy.wrap($el).should('have.class', 'has-error')
+                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.email)
+                                        }
+                                        else if(inputName === 'address_1' && inputValue.length < 3 || inputValue.length > 128){
+                                            cy.wrap($el).should('have.class', 'has-error')
+                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.address1)
+                                        }
+                                        else if(inputName === 'city' && inputValue.length < 3 || inputValue.length > 128){
+                                            cy.wrap($el).should('have.class', 'has-error')
+                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.city)
+                                        }
+                                        else if(inputName === 'zone_id' && $el.hasClass('has-error')){
+                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.state)
+                                        }
+                                        else if(inputName === 'postcode' && inputValue.length < 3 || inputValue.length > 10){
+                                            cy.wrap($el).should('have.class', 'has-error')
+                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.zipCode)
+                                        }
+                                        else if(inputName === 'loginname' && inputValue.length < 5 ||  inputValue.length > 64){
+                                            cy.wrap($el).should('have.class', 'has-error')
+                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.loginName)
+                                        }
+                                        else if(inputName === 'password' && inputValue.length < 4 || inputValue.length > 20){
+                                            cy.wrap($el).should('have.class', 'has-error')
+                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.password)
+                                        }
+                                        else if(inputName === 'confirm' && inputValue.length < 4 || inputValue.length > 20){
+                                            cy.wrap($el).should('have.class', 'has-error')
+                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.password)
+                                        }
 
                                     })
 
@@ -74,9 +99,22 @@ class newUserCheckoutPage {
 
                             })
 
-                        }
+                        // }
 
-                    }
+                    } 
+                    // else if(tagName === 'SELECT'){
+                    
+                    //     cy.get('select#AccountFrm_zone_id > option').each(function($el2, index2, $list2){
+                    //         // console.log($el)
+                    //         // console.log($el.text())
+                    //         // console.log($list2)
+                    //         cy.getElementAttribute($el2, 'selected').then(function(selected){
+  
+                    //             console.log(selected)
+
+                    //         })
+                    //     })
+                    // }
 
                 })
 
@@ -117,13 +155,21 @@ class newUserCheckoutPage {
         return this
     }
 
-    fillEmailInput(){
-        cy.generateEmail().then(function(generatedEmail){
+    fillEmailInput(isValid){
+        if(isValid){
+            cy.generateEmail().then(function(generatedEmail){
+                cy.get('input#AccountFrm_email')
+                    .click()
+                    .clear()
+                    .type(generatedEmail)
+            })
+        }
+        else{
             cy.get('input#AccountFrm_email')
                 .click()
                 .clear()
-                .type(generatedEmail)
-        })
+                .type('@you.me.net')
+        }
 
         
         return this

@@ -6,7 +6,7 @@ import {loginData} from '../../fixtures/input_data'
 describe('Test forgot password page', function(){
     // const forgotPassword = new forgotPasswordPage()
 
-    it.only('Positive scenario', function(){
+    it('Positive scenario', function(){
         // forgotPasswordPage.openForgotPasswordPage()
 
         // forgotPasswordPage.checkMainTitle()
@@ -53,6 +53,18 @@ describe('Test forgot password page', function(){
             .continueButtonClick()
             .checkErrorMessageEmailAddress()
             .closeAlert()
-    })  
+    })
+    
+    it.only('Validation test', function(){
+        forgotPasswordPage
+            .openForgotPasswordPage()
+            .checkInputValidation()
+            // .fillLoginName(loginData.loginName)
+            .fillLoginName(loginData.notRegisteredLoginName)
+            .fillEmailAddress(loginData.email)
+            // .fillEmailAddress(loginData.notValidEmail)
+            .continueButtonClick()
+            .checkInputValidation()
+    })
 
 })

@@ -7,7 +7,11 @@ export const loginData = {
     city: 'Test',
     zipCode: '00061',
     phone: '9898989898',
-    password: 'Testzuum12!'
+    password: 'Testzuum12!',
+
+    notRegisteredEmail: 'reida.maksimaaqq222aaa@gmail.com',
+    notValidEmail: 'testtest',
+    notRegisteredLoginName: 'MaksymR1234qqqaa123'
 }
 
 
@@ -126,4 +130,13 @@ export const newUserData = {
 
 export const checkoutConfirmationData = {
     checkBreadcrumbs: ['Home', 'Basket', 'Guest Checkout - Step 1', 'Guest Checkout - Step 2', 'Confirm']
+}
+
+export const forgotPasswordPageData = {
+    mainTitle: 'Forgot Your Password?',
+    helpText: 'Enter the login name and e-mail address associated with your account. Click submit to request password reset',
+    successMessage: 'Success: Password reset link has been sent to your e-mail address',
+    emailError: 'Error: The Email address was not provided or not found in our records, please try again!',
+    loginNameError: 'Error: The Login name was not provided or not found in our records, please try again!',
+    noRecorsdError: 'Error: No records found matching information your provided, please check your information and try again!'
 }

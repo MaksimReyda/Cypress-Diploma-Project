@@ -1,5 +1,8 @@
 /// <reference types="cypress" />
 
+import {forgotPasswordPageData} from '../../fixtures/input_data'
+import {loginData} from '../../fixtures/input_data'
+
 class forgotPasswordPage {
     pageLocators = {
         forgotPasswordTitle: '.maintext',
@@ -12,7 +15,9 @@ class forgotPasswordPage {
         errorAlert: '.alert.alert-danger.alert-error',
         errorAlertLoginName: '.alert.alert-danger.alert-error',
         errorAlertEmail: '.alert.alert-danger.alert-error',
-        closeAlertButton: '.alert.alert-danger.alert-error > .close'
+        closeAlertButton: '.alert.alert-danger.alert-error > .close',
+
+        inputs: '.form-group > .input-group'
     }
 
     openForgotPasswordPage(){
@@ -26,21 +31,106 @@ class forgotPasswordPage {
 
     checkMainTitle(){
         cy.get(this.pageLocators.forgotPasswordTitle).then(function(title){
-            expect(title.text().trim()).contains('Forgot Your Password?')
+            expect(title.text().trim()).contains(forgotPasswordPageData.mainTitle)
         })
         return this
     }
 
     checkHelpText(){
         cy.get(this.pageLocators.helpText).then(function(helpText){
-            expect(helpText.text().trim()).contains('Enter the login name and e-mail address associated with your account. Click submit to request password reset')
+            expect(helpText.text().trim()).contains(forgotPasswordPageData.helpText)
         })
         return this
     }
 
+    checkInputValidation(){
+
+        let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+        let loginNameInputData = {}, emailInputData = {}
+
+        cy.isElementExist(this.pageLocators.errorAlert).then(function(isExist){
+
+            console.log(isExist)
+
+            if( isExist ){
+
+                console.log('+++++++++++++')
+
+                if(cy.get('#maincontainer > .container-fluid').find('.alert')){
+
+                    cy.get('.alert.alert-danger.alert-error').then(function(errorMessage){
+
+                        cy.get('.form-group > .input-group').each(function($el, index, $list){
+    
+                            cy.getElementAttribute($el.find('input'), 'value').then(function(inputValue){
+                
+                                cy.getElementAttribute($el.find('input'), 'name').then(function(inputName){
+                                    
+                                    console.log(inputName)
+
+                                    if(inputName === 'loginname'){
+                                        loginNameInputData.name = inputName
+                                        loginNameInputData.value = inputValue
+                                    } else if(inputName === 'email'){
+
+                                        emailInputData.name = inputName
+                                        emailInputData.value = inputValue
+
+                                    }
+        
+                                }).then(function(){
+                                    console.log(loginNameInputData)
+                                    console.log(emailInputData)
+
+                                    if(loginNameInputData.value === '' && emailInputData.value === ''){
+                                        expect(errorMessage.text().trim()).contains(forgotPasswordPageData.emailError)
+                                    }
+                                    else if(loginNameInputData.value === '' && emailInputData.value === loginData.email){
+                                        expect(errorMessage.text().trim()).contains(forgotPasswordPageData.loginNameError)
+                                    }
+                                    else if(loginNameInputData.value === '' && emailInputData.value === loginData.notRegisteredEmail){
+                                        expect(errorMessage.text().trim()).contains(forgotPasswordPageData.loginNameError)
+                                    }
+                                    else if(loginNameInputData.value === '' && emailInputData.value === loginData.notValidEmail){
+                                        expect(errorMessage.text().trim()).contains(forgotPasswordPageData.loginNameError)
+                                    }
+                                    else if(loginNameInputData.value === loginData.loginName && emailInputData.value === ''){
+                                        expect(errorMessage.text().trim()).contains(forgotPasswordPageData.emailError)
+                                    }
+                                    else if(loginNameInputData.value === loginData.notRegisteredLoginName && emailInputData.value === ''){
+                                        expect(errorMessage.text().trim()).contains(forgotPasswordPageData.emailError)
+                                    }
+                                    else if(loginNameInputData.value === loginData.notRegisteredLoginName && emailInputData.value === loginData.email){
+                                        expect(errorMessage.text().trim()).contains(forgotPasswordPageData.noRecorsdError)
+                                    }
+                                    else if(loginNameInputData.value === loginData.loginName && emailInputData.value === loginData.notRegisteredEmail){
+                                        expect(errorMessage.text().trim()).contains(forgotPasswordPageData.noRecorsdError)
+                                    }
+                                    else if(loginNameInputData.value === loginData.loginName && emailInputData.value === loginData.notValidEmail){
+                                        expect(errorMessage.text().trim()).contains(forgotPasswordPageData.noRecorsdError)
+                                    }
+                                })
+                            })
+                        })
+                    })
+
+                }
+
+
+            } else{
+                console.log('------------')
+            }
+        })
+
+        return this
+
+
+    }
+
     checkSuccessMessage(){
         cy.get(this.pageLocators.successAlert).then(function(alert){
-            expect(alert.text().trim()).contains('Success: Password reset link has been sent to your e-mail address')
+            expect(alert.text().trim()).contains(forgotPasswordPageData.successMessage)
         })
         return this
     }
@@ -67,27 +157,43 @@ class forgotPasswordPage {
     }
 
     backButtonClick(){
-        cy.get(this.pageLocators.backButton).contains('Back').click()
+        cy.get(this.pageLocators.backButton)
+            .contains('Back')
+            .click()
         return this
     }
     
     continueButtonClick(){
-        cy.get(this.pageLocators.continueButton).contains('Continue').click()
+        cy.get(this.pageLocators.continueButton)
+            .contains('Continue')
+            .click()
+        
         return this
     }
 
     fillLoginName(loginName){
-        cy.get(this.pageLocators.loginNameInput).click().clear().type(loginName)
+        cy.get(this.pageLocators.loginNameInput)
+            .click()
+            .clear()
+            .type(loginName)
+        
         return this
     }
 
     fillEmailAddress(email){
-        cy.get(this.pageLocators.emailInput).click().clear().type(email)
+        cy.get(this.pageLocators.emailInput)
+            .click()
+            .clear()
+            .type(email)
+        
         return this
     }
 
     closeAlert(){
-        cy.get(this.pageLocators.closeAlertButton).click()
+        cy.get(this.pageLocators.closeAlertButton)
+            .click()
+        
+        
         return this
     }
 }

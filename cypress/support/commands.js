@@ -342,44 +342,20 @@ Cypress.Commands.add('AddProductToCart', function (productIndex) {
         }
 
     })
-    // .then(function () {
+})
 
-    //     let chartData = []
 
-    //     cy.get('#top_cart_product_list > div > table > tbody > tr').each(function ($el, index, $list) {
-    //         console.log($el.text())
-    //         cy.get($el.find('.name')).then(function (name) {
+Cypress.Commands.add('isElementExist', function(elementLocator){
 
-    //             cy.get($el.find('.total')).then(function (total) {
+    cy.get('body').then(function(body){
+        if(body.find(elementLocator).length !== 0){
+            console.log('The element exists')
+            return true
+        } else{
+            
+            console.log('The element doesnt exist')
+            return false
+        }
+    })
 
-    //                 cy.get($el.find('.quantity')).then(function (quantity) {
-    //                     chartData.push({
-    //                         name: name.text().trim(),
-    //                         total: total.text().trim(),
-    //                         quantity: quantity.text().trim()
-    //                     })
-    //                 })
-    //             })
-
-    //         })
-    //     }).then(function () {
-    //         // console.log(chartData)
-    //         console.log(typeof productsData)
-    //         console.log(chartData)
-
-    //         productsData.forEach(function (item) {
-    //             chartData.forEach(function (chartItem) {
-    //                 expect(item.name).contain(chartItem.name)
-    //                 expect(item.price).contains(chartItem.total)
-    //                 expect(item.quantity).contains(chartItem.quantity)
-    //             })
-
-    //             // console.log(item)
-    //         })
-
-    //     })
-
-    // })
-
-    // return this
 })

@@ -11,7 +11,8 @@ export const loginData = {
 
     notRegisteredEmail: 'reida.maksimaaqq222aaa@gmail.com',
     notValidEmail: 'testtest',
-    notRegisteredLoginName: 'MaksymR1234qqqaa123'
+    notRegisteredLoginName: 'MaksymR1234qqqaa123',
+    notRegisteredLastName: 'Reidaqqqqq11111'
 }
 
 
@@ -139,4 +140,13 @@ export const forgotPasswordPageData = {
     emailError: 'Error: The Email address was not provided or not found in our records, please try again!',
     loginNameError: 'Error: The Login name was not provided or not found in our records, please try again!',
     noRecorsdError: 'Error: No records found matching information your provided, please check your information and try again!'
+}
+
+export const forgotLoginPageData = {
+    successMessage: 'Success: Your login name reminder has been sent to your e-mail address.',
+    emailError: 'Error: The Email address was not provided or not found in our records, please try again!',
+    lastNameError: 'Error: The Last name was not provided or not found in our records, please try again!',
+    noRecorsdError: 'Error: No records found matching information your provided, please check your information and try again!',
+    mainTitle: 'Forgot Your Login Name?',
+    helpText: 'Enter the last name and e-mail address associated with your account. Click submit to have your login name emailed to you'
 }

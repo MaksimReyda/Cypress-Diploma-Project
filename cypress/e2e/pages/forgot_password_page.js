@@ -120,6 +120,14 @@ class forgotPasswordPage {
 
             } else{
                 console.log('------------')
+                cy.isElementExist('.alert.alert-success').then(function(isSuccess){
+                    if(isSuccess){
+                        console.log('SUCCESS MESSAGE')
+                        cy.get('.alert.alert-success').then(function(successMessage){
+                            expect(successMessage.text().trim()).contains(forgotPasswordPageData.successMessage)
+                        })
+                    }
+                })
             }
         })
 
@@ -128,33 +136,33 @@ class forgotPasswordPage {
 
     }
 
-    checkSuccessMessage(){
-        cy.get(this.pageLocators.successAlert).then(function(alert){
-            expect(alert.text().trim()).contains(forgotPasswordPageData.successMessage)
-        })
-        return this
-    }
+    // checkSuccessMessage(){
+    //     cy.get(this.pageLocators.successAlert).then(function(alert){
+    //         expect(alert.text().trim()).contains(forgotPasswordPageData.successMessage)
+    //     })
+    //     return this
+    // }
 
-    checkErrorMessage(){
-        cy.get(this.pageLocators.errorAlert).then(function(errorMessage){
-            expect(errorMessage.text().trim()).contains('Error: The Email address was not provided or not found in our records, please try again!')
-        })
-        return this
-    }
+    // checkErrorMessage(){
+    //     cy.get(this.pageLocators.errorAlert).then(function(errorMessage){
+    //         expect(errorMessage.text().trim()).contains('Error: The Email address was not provided or not found in our records, please try again!')
+    //     })
+    //     return this
+    // }
 
-    checkErrorMessageLoginName(){
-        cy.get(this.pageLocators.errorAlertLoginName).then(function(errorMessage){
-            expect(errorMessage.text().trim()).contains('Error: The Login name was not provided or not found in our records, please try again!')
-        })
-        return this
-    }
+    // checkErrorMessageLoginName(){
+    //     cy.get(this.pageLocators.errorAlertLoginName).then(function(errorMessage){
+    //         expect(errorMessage.text().trim()).contains('Error: The Login name was not provided or not found in our records, please try again!')
+    //     })
+    //     return this
+    // }
 
-    checkErrorMessageEmailAddress(){
-        cy.get(this.pageLocators.errorAlertEmail).then(function(errorMessage){
-            expect(errorMessage.text().trim()).contains('Error: The Email address was not provided or not found in our records, please try again!')
-        })
-        return this
-    }
+    // checkErrorMessageEmailAddress(){
+    //     cy.get(this.pageLocators.errorAlertEmail).then(function(errorMessage){
+    //         expect(errorMessage.text().trim()).contains('Error: The Email address was not provided or not found in our records, please try again!')
+    //     })
+    //     return this
+    // }
 
     backButtonClick(){
         cy.get(this.pageLocators.backButton)

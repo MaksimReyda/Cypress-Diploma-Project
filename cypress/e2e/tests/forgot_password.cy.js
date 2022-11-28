@@ -65,6 +65,10 @@ describe('Test forgot password page', function(){
             // .fillEmailAddress(loginData.notValidEmail)
             .continueButtonClick()
             .checkInputValidation()
+            .fillLoginName(loginData.loginName)
+            .fillEmailAddress(loginData.email)
+            .continueButtonClick()
+            .checkInputValidation()
     })
 
 })

@@ -5,7 +5,8 @@ import shoppingCartPage from '../pages/shopping_chart_page'
 import {guestCheckoutPageData} from '../../fixtures/input_data'
 
 describe('Guest checkout page testing', function(){
-    it('Positive scenario', function(){
+
+    this.beforeEach(function(){
 
         cy.AddProductToCart(0)
         // cy.AddProductToCart(4)
@@ -13,6 +14,76 @@ describe('Guest checkout page testing', function(){
         shoppingCartPage
         .visitPage()
         .clickCheckoutButton()
+    })
+
+    it.only('Negative scenario: Leave all required fields empty', function(){
+
+        guestCheckoutPage
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            // .fillRegionSelect(0)
+            .clickContinueButton()
+            .checkInputsValidation()
+
+    })
+
+    it('Negative scenario: Type into the first name field name with 2 characters', function(){
+
+        guestCheckoutPage
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .fillFirstNameInput(guestCheckoutPageData.firstName2characters)
+            .clickContinueButton()
+            .checkInputsValidation()
+            
+    })
+
+    it('Negative scenario: Type into the first name field name with 33 characters', function(){
+
+        guestCheckoutPage
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .fillFirstNameInput(guestCheckoutPageData.firstName33characters)
+            .clickContinueButton()
+            .checkInputsValidation()
+            
+    })
+
+    it('Negative scenario: Type into the last name field name with 2 characters', function(){
+
+        guestCheckoutPage
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .fillLastNameInput(guestCheckoutPageData.lastName2characters)
+            .clickContinueButton()
+            .checkInputsValidation()
+            
+    })
+
+    it('Negative scenario: Type into the last name field name with 33 characters', function(){
+
+        guestCheckoutPage
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .fillLastNameInput(guestCheckoutPageData.lastName33characters)
+            .clickContinueButton()
+            .checkInputsValidation()
+            
+    })
+
+    it('Positive scenario', function(){
+
+        // cy.AddProductToCart(0)
+        // // cy.AddProductToCart(4)
+
+        // shoppingCartPage
+        // .visitPage()
+        // .clickCheckoutButton()
 
         guestCheckoutPage
         .selectGuestCheckoutRadioButton()

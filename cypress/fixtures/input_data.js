@@ -80,7 +80,14 @@ export const mainPageData = {
 
 export const guestCheckoutPageData = {
     firstName: 'Maksym',
+    firstName2characters: 'Ma',
+    firstName33characters: 'MmmmmmmmmmMmmmmmmmmmMmmmmmmmmmAAA',
+
+
     lastName: 'Guest',
+    lastName2characters: 'gu',
+    lastName33characters: 'GuestGuestGuestGuestGuestGuestWWW',
+
     phoneNumber: '9898989777',
     faxNumber: '5551234567',
     company: 'Stark industries',

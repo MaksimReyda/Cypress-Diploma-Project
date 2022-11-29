@@ -6,6 +6,8 @@ import {guestCheckoutPageData} from '../../fixtures/input_data'
 
 describe('Guest checkout page testing', function(){
 
+    let isEmailValid = true
+
     this.beforeEach(function(){
 
         cy.AddProductToCart(0)
@@ -16,7 +18,7 @@ describe('Guest checkout page testing', function(){
         .clickCheckoutButton()
     })
 
-    it.only('Negative scenario: Leave all required fields empty', function(){
+    it('Negative scenario: Leave all required fields empty', function(){
 
         guestCheckoutPage
             .selectGuestCheckoutRadioButton()
@@ -76,6 +78,93 @@ describe('Guest checkout page testing', function(){
             
     })
 
+    it('Negative scenario: Type into the email field, invalid email', function(){
+
+        guestCheckoutPage
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .fillEmailInput(!isEmailValid)
+            .clickContinueButton()
+            .checkInputsValidation()
+            
+    })
+
+    it('Negative scenario: Type into the address1 field name with 2 characters', function(){
+
+        guestCheckoutPage
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .fillAddress1Input(guestCheckoutPageData.address1_2characters)
+            .clickContinueButton()
+            .checkInputsValidation()
+            
+    })
+
+    it('Negative scenario: Type into the address1 field name with 129 characters', function(){
+
+        guestCheckoutPage
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .fillAddress1Input(guestCheckoutPageData.address1_129characters)
+            .clickContinueButton()
+            .checkInputsValidation()
+            
+    })
+
+    it('Negative scenario: Type into the city field name with 2 characters', function(){
+
+        guestCheckoutPage
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .fillCityInput(guestCheckoutPageData.city2characters)
+            .clickContinueButton()
+            .checkInputsValidation()
+            
+    })
+
+    it('Negative scenario: Type into the city field name with 129 characters', function(){
+
+        guestCheckoutPage
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .fillCityInput(guestCheckoutPageData.city129characters)
+            .clickContinueButton()
+            .checkInputsValidation()
+            
+    })
+
+    it('Negative scenario: Type into the zip code field code with 2 characters', function(){
+
+        guestCheckoutPage
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .fillCityInput(guestCheckoutPageData.zipCode2characters)
+            .clickContinueButton()
+            .checkInputsValidation()
+            
+    })
+
+
+    it('Negative scenario: Type into the zip code field code with 11 characters', function(){
+
+        guestCheckoutPage
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .fillCityInput(guestCheckoutPageData.zipCode11characters)
+            .clickContinueButton()
+            .checkInputsValidation()
+            
+    })
+
+
+
     it('Positive scenario', function(){
 
         // cy.AddProductToCart(0)
@@ -86,19 +175,19 @@ describe('Guest checkout page testing', function(){
         // .clickCheckoutButton()
 
         guestCheckoutPage
-        .selectGuestCheckoutRadioButton()
-        .clickContinueButton()
-        .checkOrderSummary()
-        .clickContinueButton()
-        .checkInputsValidation()
-        .fillFirstNameInput(guestCheckoutPageData.firstName)
-        .fillLastNameInput(guestCheckoutPageData.lastName)
-        .fillEmailInput()
-        .fillAddress1Input(guestCheckoutPageData.address1)
-        .fillCityInput(guestCheckoutPageData.city)
-        .fillRegionSelect(3)
-        .fillZipCodeInput(guestCheckoutPageData.zipCode)
-        .clickContinueButton()
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .clickContinueButton()
+            .checkInputsValidation()
+            .fillFirstNameInput(guestCheckoutPageData.firstName)
+            .fillLastNameInput(guestCheckoutPageData.lastName)
+            .fillEmailInput(isEmailValid)
+            .fillAddress1Input(guestCheckoutPageData.address1)
+            .fillCityInput(guestCheckoutPageData.city)
+            .fillRegionSelect(3)
+            .fillZipCodeInput(guestCheckoutPageData.zipCode)
+            .clickContinueButton()
         
 
         

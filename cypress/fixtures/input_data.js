@@ -86,15 +86,28 @@ export const guestCheckoutPageData = {
 
     lastName: 'Guest',
     lastName2characters: 'gu',
-    lastName33characters: 'GuestGuestGuestGuestGuestGuestWWW',
+    lastName33characters: 'GuestGuestGuestGuestGuestGuestWWWv',
+
+    invalidEmail: 'testydyx.',
 
     phoneNumber: '9898989777',
     faxNumber: '5551234567',
     company: 'Stark industries',
+
     address1: 'Test address 1231',
+    address1_2characters: 'te',
+    address1_129characters: 'qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuio',
+
     address2: '333',
+
     city: 'Test City',
+    city2characters: 'qq',
+    city129characters: 'qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuio',
+
     zipCode: '00061',
+    zipCode2characters: '69',
+    zipCode11characters: '12345678909',
+
     fieldsValidationMessages:{
         firstName: 'First Name must be greater than 3 and less than 32 characters!',
         lastName: 'Last Name must be greater than 3 and less than 32 characters!',

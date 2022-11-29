@@ -77,84 +77,51 @@ class guestCheckoutPage {
     }
 
     
-    checkInputsValidation(){
+    checkInputsValidationDontUSE(){
         //form#guestFrm > div > fieldset > .form-group
 
         let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
-        cy.isShippingDetailsVisable().then(function(isShipDetailsVisable){
-            if(isShipDetailsVisable === true){
-                cy.get('fieldset > .form-group').each(function($el, index, $list){
-                    // Find required fields
-                    if($el.find('.input-group-addon').children().hasClass('required')){
-                        console.log('Find required')
-                        // if($el.find('input').has.name('firstname')){
-                        //     cy.wrap($el.find('input')).type('test')
-                        // }
-                        // $el.find('.input-group').children()
-                        cy.wrap($el).find('.input-group').children().first().invoke('attr', 'name').then(function(attributeName){
-                            // console.log(attributeName)
-                            cy.get($el.find('.help-block')).then(function(validationText){
-                                // console.log(validationText.text())
-                                if(attributeName === 'firstname' || attributeName === 'shipping_firstname'){
-                                    expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.firstName)
-                                    // console.log(validationText.text())
-                                } else if(attributeName === 'lastname' || attributeName === 'shipping_lastname'){
-                                    expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.lastName)
-                                } else if(attributeName === 'email'){
-                                    expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.email)
-                                } else if(attributeName === 'address_1' || attributeName === 'shipping_address_1'){
-                                    expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.address1)
-                                } else if(attributeName === 'city' || attributeName === 'shipping_city'){
-                                    expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.city)
-                                } else if(attributeName === 'guestFrm_zone_id' || attributeName === 'guestFrm_shipping_zone_id'){
-                                    expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.state)
-                                } else if(attributeName === 'postcode' || attributeName === 'shipping_postcode'){
-                                    expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.zipCode)
-                                }
-                            })
-                        })
-                    }
-                })
-            } else{
+        let firstNameInput = {}, lastNameInput = {}, emailInput = {}, address1c = {}, city = {}, regionSelect = {}, zipCodeInput = {}
+        
+
+        // cy.isShippingDetailsVisable().then(function(isShipDetailsVisable){
+
+
+            // if(isShipDetailsVisable === true){
+            //     cy.get('fieldset > .form-group').each(function($el, index, $list){
+            //         // Find required fields
+            //         if($el.find('.input-group-addon').children().hasClass('required')){
+            //             console.log('Find required')
+
+            //             cy.wrap($el).find('.input-group').children().first().invoke('attr', 'name').then(function(attributeName){
+            //                 // console.log(attributeName)
+            //                 cy.get($el.find('.help-block')).then(function(validationText){
+                               
+            //                     if(attributeName === 'firstname' || attributeName === 'shipping_firstname'){
+            //                         expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.firstName)
+                                    
+            //                     } else if(attributeName === 'lastname' || attributeName === 'shipping_lastname'){
+            //                         expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.lastName)
+            //                     } else if(attributeName === 'email'){
+            //                         expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.email)
+            //                     } else if(attributeName === 'address_1' || attributeName === 'shipping_address_1'){
+            //                         expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.address1)
+            //                     } else if(attributeName === 'city' || attributeName === 'shipping_city'){
+            //                         expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.city)
+            //                     } else if(attributeName === 'guestFrm_zone_id' || attributeName === 'guestFrm_shipping_zone_id'){
+            //                         expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.state)
+            //                     } else if(attributeName === 'postcode' || attributeName === 'shipping_postcode'){
+            //                         expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.zipCode)
+            //                     }
+            //                 })
+            //             })
+            //         }
+            //     })
+            // } 
+            // else{
                 cy.get('#guestFrm > div > fieldset > .form-group').each(function($el, index, $list){
 
-                    // cy.isFieldEmpty($el.find('.input-group').children().first()).then(function(isFieldEmpty){
-                    //     // Find required fields
-                    //     if($el.find('.input-group-addon').children().hasClass('required')){
-                    //         console.log('Find required')
-
-                    //         cy.wrap($el).find('.input-group').children().first().invoke('attr', 'name').then(function(attributeName){
-                                
-                    //             cy.get($el.find('.help-block')).then(function(validationText){
-                                    
-                    //                 if((attributeName === 'firstname' && isFieldEmpty === 0) || (attributeName === 'firstname' && isFieldEmpty < 3 || isFieldEmpty > 32)){
-                    //                     console.log(isFieldEmpty)
-                    //                     expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.firstName)
-                    //                 }
-                    //                 else if((attributeName === 'lastName' && isFieldEmpty === 0) || (attributeName === 'lastName' && isFieldEmpty < 3 || isFieldEmpty > 32)){
-                    //                     expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.lastName)
-                    //                 }
-                    //                 else if(attributeName === 'email'){
-                    //                     expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.email)
-                    //                 } 
-                    //                 else if((attributeName === 'address_1' && isFieldEmpty === 0) || (attributeName === 'address_1' && isFieldEmpty < 3 || isFieldEmpty > 128)){
-                    //                     expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.address1)
-                    //                 } 
-                    //                 else if((attributeName === 'city' && isFieldEmpty === 0) || (attributeName === 'city' && isFieldEmpty < 3 || isFieldEmpty > 128)){
-                    //                     expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.city)
-                    //                 }
-                    //                 else if(attributeName === 'guestFrm_zone_id'){
-                    //                     expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.state)
-                    //                 } 
-                    //                 else if((attributeName === 'postcode' && isFieldEmpty === 0) || (attributeName === 'postcode' && isFieldEmpty < 3 || isFieldEmpty > 128)){
-                    //                     // postcode
-                    //                     expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.zipCode)
-                    //                 }
-                    //             })
-                    //         })
-                    //     }
-                    // })
 
                     if($el.find('.input-group-addon').children().hasClass('required')){
 
@@ -163,38 +130,56 @@ class guestCheckoutPage {
                             cy.getElementAttribute($el.find('.input-group').children(), 'name').then(function(inputName){
 
                                 console.log(inputName)
+                                console.log(inputValue)
+                                console.log(inputValue.length)
 
                                 cy.get($el.find('.help-block')).then(function(validationText){
 
-                                    if(inputName === 'firstname' && inputValue.length < 3 || inputValue.length > 32){
-                                        cy.wrap($el).should('have.class', 'has-error')
-                                        expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.firstName)
+
+                                    if(inputName === 'firstname'){
+                                        firstNameInput.name = inputName
+                                        firstNameInput.value = inputValue
+                                        firstNameInput.error = validationText.text().trim()
                                     }
-                                    else if(inputName === 'lastName' && inputValue.length < 3 || inputValue.length > 32){
-                                        cy.wrap($el).should('have.class', 'has-error')
-                                        expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.lastName)
+                                    else if(inputName === 'lastname'){
+                                        lastNameInput.name = inputName
+                                        lastNameInput.value = inputValue
+                                        lastNameInput.error = validationText.text().trim()
                                     }
-                                    else if(inputName === 'email' && !inputValue.match(emailFormat)){
-                                        cy.wrap($el).should('have.class', 'has-error')
-                                        expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.email)
+
+
+                                }).then(function(){
+
+                                    console.log(firstNameInput)
+                                    console.log(lastNameInput)
+
+                                    if(firstNameInput.name === 'firstname' && firstNameInput.value.length < 3 || firstNameInput.value.length > 32){
+                                        // cy.wrap($el).should('have.class', 'has-error')
+                                        expect(firstNameInput.error).contains(guestCheckoutPageData.fieldsValidationMessages.firstName)
                                     }
-                                    else if(inputName === 'address_1' && inputValue.length < 3 || inputValue.length > 128){
-                                        cy.wrap($el).should('have.class', 'has-error')
-                                        expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.address1)
+                                    else if(lastNameInput.name === 'lastname' && lastNameInput.value.length < 3 || lastNameInput.value.length > 32){
+                                        // cy.wrap($el).should('have.class', 'has-error')
+                                        expect(lastNameInput.error).contains(guestCheckoutPageData.fieldsValidationMessages.lastName)
                                     }
-                                    else if(inputName === 'city' && inputValue.length < 3 || inputValue.length > 128){
-                                        cy.wrap($el).should('have.class', 'has-error')
-                                        expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.city)
-                                    }
-                                    // else if(inputName === 'guestFrm_zone_id' && $el.parent().find('div:nth-of-type(2) > fieldset > div:nth-of-type(5)').hasClass('has-error')){
-                                    //     expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.state)
+                                    // else if(inputName === 'email' && !inputValue.match(emailFormat)){
+                                    //     cy.wrap($el).should('have.class', 'has-error')
+                                    //     expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.email)
                                     // }
-                                    else if(inputName === 'postcode' && inputValue.length < 3 || inputValue.length > 10){
-                                        cy.wrap($el).should('have.class', 'has-error')
-                                        expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.zipCode)
-                                    }
-
-
+                                    // else if(inputName === 'address_1' && inputValue.length < 3 || inputValue.length > 128){
+                                    //     cy.wrap($el).should('have.class', 'has-error')
+                                    //     expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.address1)
+                                    // }
+                                    // else if(inputName === 'city' && inputValue.length < 3 || inputValue.length > 128){
+                                    //     cy.wrap($el).should('have.class', 'has-error')
+                                    //     expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.city)
+                                    // }
+                                    // // else if(inputName === 'zone_id' && $el.parent().find('div:nth-of-type(2) > fieldset > div:nth-of-type(5)').hasClass('has-error')){
+                                    // //     expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.state)
+                                    // // }
+                                    // else if(inputName === 'postcode' && inputValue.length < 3 || inputValue.length > 10){
+                                    //     cy.wrap($el).should('have.class', 'has-error')
+                                    //     expect(validationText.text()).contains(guestCheckoutPageData.fieldsValidationMessages.zipCode)
+                                    // }
                                 })
                             })
                         })
@@ -203,14 +188,127 @@ class guestCheckoutPage {
 
 
                 })
-            }
-        })
+            // }
+        // })
 
 
 
         // cy.isShippingDetailsVisable(function(isVisible){
         //     console.log(isVisible)
         // })
+        return this
+    }
+
+    checkInputsValidation(){
+
+        let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+        let inputsData = []
+
+        let firstNameInput = {}, lastNameInput = {}, emailInput = {}, address1Input = {}, cityInput = {}, regionSelect = {}, zipCodeInput = {}
+
+        cy.get('#guestFrm > div > fieldset > .form-group').each(function($el, index, $list){
+
+            if($el.find('.input-group-addon').children().hasClass('required')){
+
+                cy.get($el.find('.help-block')).then(function(validationText){
+
+                    cy.getElementAttribute($el.find('.input-group').children(), 'name').then(function(inputName){
+                        
+                        cy.getElementAttribute($el.find('.input-group').children(), 'value').then(function(inputValue){
+
+                            if(inputName === 'firstname'){
+
+                                inputsData.push({
+                                    name: inputName,
+                                    value: inputValue,
+                                    error: validationText.text().trim()
+                                })
+
+                            }
+                            else if(inputName === 'lastname'){
+
+                                inputsData.push({
+                                    name: inputName,
+                                    value: inputValue,
+                                    error: validationText.text().trim()
+                                })
+
+                            }
+                            else if(inputName === 'email'){
+
+                                inputsData.push({
+                                    name: inputName,
+                                    value: inputValue,
+                                    error: validationText.text().trim()
+                                })
+
+                            }
+                            else if(inputName === 'address_1'){
+
+                                inputsData.push({
+                                    name: inputName,
+                                    value: inputValue,
+                                    error: validationText.text().trim()
+                                })
+
+                            }
+                            else if(inputName === 'city'){
+
+                                inputsData.push({
+                                    name: inputName,
+                                    value: inputValue,
+                                    error: validationText.text().trim()
+                                })
+
+                            }
+                            else if(inputName === 'postcode'){
+
+                                inputsData.push({
+                                    name: inputName,
+                                    value: inputValue,
+                                    error: validationText.text().trim()
+                                })
+                                
+                            }
+
+                        })
+
+                    })
+
+                })
+
+            }
+
+        }).then(function(){
+
+            console.log(inputsData)
+
+            for(let i = 0; i < inputsData.length; i++){
+
+                if(inputsData[i].name === 'firstname' && inputsData[i].value.length < 3 || inputsData[i].name === 'firstname' && inputsData[i].value.length > 32){
+                    expect(inputsData[i].error).contains(guestCheckoutPageData.fieldsValidationMessages.firstName)
+                }
+                else if(inputsData[i].name === 'lastname' && inputsData[i].value.length < 3 || inputsData[i].name === 'lastname' && inputsData[i].value.length > 32){
+                    expect(inputsData[i].error).contains(guestCheckoutPageData.fieldsValidationMessages.lastName)
+                }
+                else if(inputsData[i].name === 'email' && inputsData[i].value.length < 3 || inputsData[i].name === 'email' && inputsData[i].value === guestCheckoutPageData.invalidEmail){
+                    expect(inputsData[i].error).contains(guestCheckoutPageData.fieldsValidationMessages.email)
+                }
+                else if(inputsData[i].name === 'address_1' && inputsData[i].value.length < 3 || inputsData[i].name === 'address_1' && inputsData[i].value.length > 128){
+                    expect(inputsData[i].error).contains(guestCheckoutPageData.fieldsValidationMessages.address1)
+                }
+                else if(inputsData[i].name === 'city' && inputsData[i].value.length < 3 || inputsData[i].name === 'city' && inputsData[i].value.length > 128){
+                    expect(inputsData[i].error).contains(guestCheckoutPageData.fieldsValidationMessages.city)
+                }
+                else if(inputsData[i].name === 'postcode' && inputsData[i].value.length < 3 || inputsData[i].name === 'postcode' && inputsData[i].value.length > 10){
+                    expect(inputsData[i].error).contains(guestCheckoutPageData.fieldsValidationMessages.zipCode)
+                }
+
+            }
+
+        })
+
         return this
     }
 
@@ -264,13 +362,21 @@ class guestCheckoutPage {
     }
 
 
-    fillEmailInput(){
-        cy.generateEmail().then(function(generatedEmail){
+    fillEmailInput(isValid){
+        if(isValid){
+            cy.generateEmail().then(function(generatedEmail){
+                cy.get('input#guestFrm_email')
+                .click()
+                .clear()
+                .type(generatedEmail)
+            })
+        }
+        else{
             cy.get('input#guestFrm_email')
             .click()
             .clear()
-            .type(generatedEmail)
-        })
+            .type(guestCheckoutPageData.invalidEmail)
+        }        
         
         return this
     }

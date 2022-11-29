@@ -13,45 +13,45 @@ describe('Random subcategory test', function(){
     it('Positive scenarion', function(){
 
         mainShopPage
-        .visitMainPage()
+            .visitMainPage()
 
         randomSubcategoryPage
-        .selectRabdomSubcategoty()
-        .addToCartAllProducts()
+            .selectRabdomSubcategoty()
+            .addToCartAllProducts()
 
 
         shoppingCartPage
-        .visitPage()
-        .clickCheckoutButton()
+            .visitPage()
+            .clickCheckoutButton()
 
         guestCheckoutPage
-        .selectGuestCheckoutRadioButton()
-        .clickContinueButton()
-        .checkOrderSummary()
-        .fillFirstNameInput(guestCheckoutPageData.firstName)
-        .fillLastNameInput(guestCheckoutPageData.lastName)
-        .fillEmailInput()
-        .fillAddress1Input(guestCheckoutPageData.address1)
-        .fillCityInput(guestCheckoutPageData.city)
-        .fillRegionSelect(3)
-        .fillZipCodeInput(guestCheckoutPageData.zipCode)
-        .clickContinueButton()
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .fillFirstNameInput(guestCheckoutPageData.firstName)
+            .fillLastNameInput(guestCheckoutPageData.lastName)
+            .fillEmailInput()
+            .fillAddress1Input(guestCheckoutPageData.address1)
+            .fillCityInput(guestCheckoutPageData.city)
+            .fillRegionSelect(3)
+            .fillZipCodeInput(guestCheckoutPageData.zipCode)
+            .clickContinueButton()
 
 
         checkoutConfirmationPage
-        .checkBreadcrumbs()
-        .checkItemsInYourCart()
-        .clickConfirmOrderButton()
-        .openInvoicePage()
+            .checkBreadcrumbs()
+            .checkItemsInYourCart()
+            .clickConfirmOrderButton()
+            .openInvoicePage()
         
         orderDetailsPage
-        .openOrderDetailsPage()
-        // .checkFormValidation()
-        .fillOrderIdInput(true, true)
-        .fillEmailInput(true, true)
-        .clickContinueButton()
-        .checkFormValidation()
-        .checkOrderDetails()
+            .openOrderDetailsPage()
+            // .checkFormValidation()
+            .fillOrderIdInput(true, true)
+            .fillEmailInput(true, true)
+            .clickContinueButton()
+            .checkFormValidation()
+            .checkOrderDetails()
 
 
     })

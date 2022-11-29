@@ -1,4 +1,4 @@
-
+import {checkYourOrderDetailsData} from '../../fixtures/input_data'
 
 class orderDetailsPage {
 
@@ -51,24 +51,60 @@ class orderDetailsPage {
         // cy.isOrderDetailsFormVisible().then(function(){
 
         // })
-        
+        let inputsData = []
+        let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
         cy.isOrderDetailsFormVisible().then(function(isVisible){
+            console.log(isVisible)
             if(isVisible){
                 cy.get('form#CheckOrderFrm > .form-horizontal.registerbox > fieldset > .form-group').each(function($el, index, $list){
                     if($el.hasClass('has-error')){
                         // #CheckOrderFrm .input-group input
-                        cy.getElementAttribute($el.find('input'), 'name').then(function(attributeName){
-                            
-                            console.log(attributeName)
-                            cy.get('div > .help-block').then(function(errorMessage){
-                                if(attributeName === 'order_id'){
-                                    expect(errorMessage.text().trim()).contains('Order ID is required field!')
-                                } else if(attributeName === 'email'){
-                                    expect(errorMessage.text().trim()).contains('E-Mail Address does not appear to be valid!')
-                                }
-                            })
+                        cy.getElementAttribute($el.find('input'), 'name').then(function(inputName){
 
+                            cy.getElementAttribute($el.find('input'), 'value').then(function(inputValue){
+
+                                console.log(inputName)
+                                cy.get($el.find('.help-block')).then(function(errorMessage){
+
+                                    console.log(errorMessage.text().trim())
+
+                                    if(inputName === 'order_id'){
+                                        inputsData.push({
+                                            name: inputName,
+                                            value: inputValue,
+                                            error: errorMessage.text().trim()
+                                        })
+                                    }
+                                    else if(inputName === 'email'){
+                                        inputsData.push({
+                                            name: inputName,
+                                            value: inputValue,
+                                            error: errorMessage.text().trim()
+                                        })
+                                    }
+
+                                    // if(inputName === 'order_id'){
+                                    //     expect(errorMessage.text().trim()).contains('Order ID is required field!')
+                                    // } else if(inputName === 'email'){
+                                    //     expect(errorMessage.text().trim()).contains('E-Mail Address does not appear to be valid!')
+                                    // }
+
+                                })
+
+                            })
+                            
                         })
+                    }
+                }).then(function(){
+                    console.log(inputsData)
+                    for(let i = 0; i < inputsData.length; i++){
+                        if(inputsData[i].name === 'order_id' && inputsData[i].value.length === 0){
+                            expect(inputsData[i].error).contains(checkYourOrderDetailsData.orderIdError)
+                        }
+                        else if(inputsData[i].name === 'email' && inputsData[i].value.length === 0 || inputsData[i].name === 'email' && !inputsData[i].value.match(emailFormat)){
+                            expect(inputsData[i].error).contains(checkYourOrderDetailsData.emailError)
+                        }
                     }
                 })
             } else{
@@ -107,9 +143,9 @@ class orderDetailsPage {
 
         } else if(!isIdReal, !isValid){
             cy.get('input#CheckOrderFrm_order_id')
-            .click()
-            .clear()
-            .type('yquwyquw')
+                .click()
+                .clear()
+                .type('yquwyquw')
         }
 
 

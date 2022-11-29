@@ -195,3 +195,8 @@ export const forgotLoginPageData = {
     mainTitle: 'Forgot Your Login Name?',
     helpText: 'Enter the last name and e-mail address associated with your account. Click submit to have your login name emailed to you'
 }
+
+export const checkYourOrderDetailsData = {
+    orderIdError: 'Order ID is required field!',
+    emailError: 'E-Mail Address does not appear to be valid!'
+}

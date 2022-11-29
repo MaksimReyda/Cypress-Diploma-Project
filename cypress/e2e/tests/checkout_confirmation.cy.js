@@ -6,30 +6,33 @@ import {checkoutConfirmationData} from '../../fixtures/input_data'
 
 
 describe('Checkout confirmation page testing', function(){
-    it('Positive scenario', function(){
+
+    let isEmailValid = true
+
+    it('Positive scenario: Check data in the Checkout confirmation page', function(){
         cy.AddProductToCart(0)
         cy.AddProductToCart(4)
 
         shoppingCartPage
-        .visitPage()
-        .clickCheckoutButton()
+            .visitPage()
+            .clickCheckoutButton()
 
         guestCheckoutPage
-        .selectGuestCheckoutRadioButton()
-        .clickContinueButton()
-        .checkOrderSummary()
-        .fillFirstNameInput(guestCheckoutPageData.firstName)
-        .fillLastNameInput(guestCheckoutPageData.lastName)
-        .fillEmailInput()
-        .fillAddress1Input(guestCheckoutPageData.address1)
-        .fillCityInput(guestCheckoutPageData.city)
-        .fillRegionSelect(3)
-        .fillZipCodeInput(guestCheckoutPageData.zipCode)
-        .clickContinueButton()
+            .selectGuestCheckoutRadioButton()
+            .clickContinueButton()
+            .checkOrderSummary()
+            .fillFirstNameInput(guestCheckoutPageData.firstName)
+            .fillLastNameInput(guestCheckoutPageData.lastName)
+            .fillEmailInput(isEmailValid)
+            .fillAddress1Input(guestCheckoutPageData.address1)
+            .fillCityInput(guestCheckoutPageData.city)
+            .fillRegionSelect(3)
+            .fillZipCodeInput(guestCheckoutPageData.zipCode)
+            .clickContinueButton()
 
         checkoutConfirmationPage
-        .checkBreadcrumbs()
-        .checkItemsInYourCart()
-        .clickConfirmOrderButton()
+            .checkBreadcrumbs()
+            .checkItemsInYourCart()
+            .clickConfirmOrderButton()
     })  
 })

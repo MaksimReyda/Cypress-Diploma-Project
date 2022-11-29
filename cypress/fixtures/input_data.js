@@ -121,19 +121,43 @@ export const guestCheckoutPageData = {
 
 export const newUserData = {
     firstName: 'Maksym',
+    firstName2characters: 'Ma',
+    firstName33characters: 'MmmmmmmmmmMmmmmmmmmmMmmmmmmmmmAAA',
+
     lastName: 'Reida',
+    lastName2characters: 're',
+    lastName33characters: 'GuestGuestGuestGuestGuestGuestWWWv',
+
+    invalidEmail: 'testt.a',
+
     phoneNumber: '9898989898',
     faxNumber: '3434353',
 
     companyName: 'Test company name',
-    address1: 'Address 1',
-    address2: '1234',
-    city: 'Test city',
-    zipCode: '69061',
 
+    address1: 'Address 1',
+    address1_2characters: 'te',
+    address1_129characters: 'qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuio',
+
+    address2: '1234',
+
+    city: 'Test city',
+    city2characters: 'qq',
+    city129characters: 'qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuio',
+
+    zipCode: '69061',
+    zipCode2characters: '69',
+    zipCode11characters: '12345678909',
 
     loginName: 'Maksym',
+    loginName4characters: 'qaws',
+    loginName65characters: 'qwertqwertqwertqwertqwertqwertqwertqwertqwertqwertqwertqwertqwert',
+
     password: 'Testzuum12!',
+    password3characters: '123',
+    password21characters: '123456789012345678901', 
+
+    diffPassword: 'Testzuum',
 
     fieldsValidationMessages: {
         firstName: 'First Name must be between 1 and 32 characters!',
@@ -144,7 +168,8 @@ export const newUserData = {
         state: 'Please select a region / state!',
         zipCode: 'Zip/postal code must be between 3 and 10 characters!',
         loginName: 'Login name must be alphanumeric only and between 5 and 64 characters!',
-        password: 'Password must be between 4 and 20 characters!'
+        password: 'Password must be between 4 and 20 characters!',
+        wrongConfirmationPassword: 'Password confirmation does not match password!'
     }
 }
 

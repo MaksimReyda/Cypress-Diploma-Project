@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import {newUserData} from '../../fixtures/input_data'
+import {loginData} from '../../fixtures/input_data'
 
 
 
@@ -25,6 +26,7 @@ class newUserCheckoutPage {
         confirmPassword: 'input#AccountFrm_confirm',
 
         inputs: 'fieldset > .form-group',
+        agreeToPrivacyPolicy: 'input#AccountFrm_agree',
         continueButton: "button[title='Continue']"
     }
 
@@ -32,63 +34,112 @@ class newUserCheckoutPage {
     checkInputValidation(){
         let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
+        let inputsData = []
+
         cy.get(this.newUserCheckoutPageLocators.inputs).each(function($el, index, $list){
             if($el.find('.input-group-addon').children().hasClass('required')){
                 console.log('Required field')
 
-                cy.getTagName($el.find('.input-group').children()).then(function(tagName){
-                    console.log(tagName)
-                    if(tagName === 'INPUT' || tagName === 'SELECT'){
+                // cy.getTagName($el.find('.input-group').children()).then(function(tagName){
+                    // console.log(tagName)
+                    // if(tagName === 'INPUT' || tagName === 'SELECT'){
 
                         // if($el.hasClass('has-error')){
 
-                            cy.getElementAttribute($el.find('input'), 'value').then(function(inputValue){
+                            cy.getElementAttribute($el.find('.input-group').children(), 'value').then(function(inputValue){
                                 
                                 
-                                cy.getElementAttribute($el.find('input'), 'name').then(function(inputName){
+                                cy.getElementAttribute($el.find('.input-group').children(), 'name').then(function(inputName){
                                     console.log(inputValue)
                                     console.log(inputName)
 
                                     cy.get($el.find('.help-block')).then(function(validationText){
 
-                                        if(inputName === 'firstname' && inputValue.length < 3 || inputValue.length > 32){
-                                            cy.wrap($el).should('have.class', 'has-error')
-                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.firstName)
+
+
+                                        if(inputName === 'firstname'){
+                                            // cy.wrap($el).should('have.class', 'has-error')
+                                            inputsData.push({
+                                                name: inputName,
+                                                value: inputValue,
+                                                error: validationText.text().trim()
+                                            })
+
                                         }
-                                        else if(inputName === 'lastname' && inputValue.length < 3 || inputValue.length > 32){
-                                            cy.wrap($el).should('have.class', 'has-error')
-                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.lastName)
+                                        else if(inputName === 'lastname'){
+                                            // cy.wrap($el).should('have.class', 'has-error')
+                                                inputsData.push({
+                                                name: inputName,
+                                                value: inputValue,
+                                                error: validationText.text().trim()
+                                            })
+
                                         }
-                                        else if(inputName === 'email' && !inputValue.match(emailFormat)){
-                                            cy.wrap($el).should('have.class', 'has-error')
-                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.email)
+                                        else if(inputName === 'email'){
+                                            // cy.wrap($el).should('have.class', 'has-error')
+                                            inputsData.push({
+                                                name: inputName,
+                                                value: inputValue,
+                                                error: validationText.text().trim()
+                                            })
+
                                         }
-                                        else if(inputName === 'address_1' && inputValue.length < 3 || inputValue.length > 128){
-                                            cy.wrap($el).should('have.class', 'has-error')
-                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.address1)
+                                        else if(inputName === 'address_1'){
+                                            // cy.wrap($el).should('have.class', 'has-error')
+                                            inputsData.push({
+                                                name: inputName,
+                                                value: inputValue,
+                                                error: validationText.text().trim()
+                                            })
+
                                         }
-                                        else if(inputName === 'city' && inputValue.length < 3 || inputValue.length > 128){
-                                            cy.wrap($el).should('have.class', 'has-error')
-                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.city)
+                                        else if(inputName === 'city'){
+                                            // cy.wrap($el).should('have.class', 'has-error')
+                                            inputsData.push({
+                                                name: inputName,
+                                                value: inputValue,
+                                                error: validationText.text().trim()
+                                            })
+
                                         }
-                                        else if(inputName === 'zone_id' && $el.hasClass('has-error')){
-                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.state)
+                                        // else if(inputName === 'zone_id' && $el.hasClass('has-error')){
+                                        //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.state)
+                                        // }
+                                        else if(inputName === 'postcode'){
+                                            // cy.wrap($el).should('have.class', 'has-error')
+                                            inputsData.push({
+                                                name: inputName,
+                                                value: inputValue,
+                                                error: validationText.text().trim()
+                                            })
+
                                         }
-                                        else if(inputName === 'postcode' && inputValue.length < 3 || inputValue.length > 10){
-                                            cy.wrap($el).should('have.class', 'has-error')
-                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.zipCode)
+                                        else if(inputName === 'loginname'){
+                                            // cy.wrap($el).should('have.class', 'has-error')
+                                            inputsData.push({
+                                                name: inputName,
+                                                value: inputValue,
+                                                error: validationText.text().trim()
+                                            })
+
                                         }
-                                        else if(inputName === 'loginname' && inputValue.length < 5 ||  inputValue.length > 64){
-                                            cy.wrap($el).should('have.class', 'has-error')
-                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.loginName)
+                                        else if(inputName === 'password'){
+                                            // cy.wrap($el).should('have.class', 'has-error')
+                                            inputsData.push({
+                                                name: inputName,
+                                                value: inputValue,
+                                                error: validationText.text().trim()
+                                            })
+
                                         }
-                                        else if(inputName === 'password' && inputValue.length < 4 || inputValue.length > 20){
-                                            cy.wrap($el).should('have.class', 'has-error')
-                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.password)
-                                        }
-                                        else if(inputName === 'confirm' && inputValue.length < 4 || inputValue.length > 20){
-                                            cy.wrap($el).should('have.class', 'has-error')
-                                            expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.password)
+                                        else if(inputName === 'confirm'){
+                                            // cy.wrap($el).should('have.class', 'has-error')
+                                            inputsData.push({
+                                                name: inputName,
+                                                value: inputValue,
+                                                error: validationText.text().trim()
+                                            })
+
                                         }
 
                                     })
@@ -101,34 +152,87 @@ class newUserCheckoutPage {
 
                         // }
 
-                    } 
-                    // else if(tagName === 'SELECT'){
-                    
-                    //     cy.get('select#AccountFrm_zone_id > option').each(function($el2, index2, $list2){
-                    //         // console.log($el)
-                    //         // console.log($el.text())
-                    //         // console.log($list2)
-                    //         cy.getElementAttribute($el2, 'selected').then(function(selected){
-  
-                    //             console.log(selected)
+                    // } 
 
-                    //         })
-                    //     })
-                    // }
+                // })
 
-                })
-
-
-                // else if (index === 1){
-                //     cy.getElementAttribute($el.find('input'), 'value').then(function(inputValue){
-                        // cy.getElementAttribute($el.find('input'), 'name').then(function(name){
-                        //     console.log(inputValue)
-                        //     console.log(name)
-                        // })
-                        
-                //     })
-                // }
             }
+        }).then(function(){
+
+            console.log(inputsData)
+
+            for(let i = 0; i < inputsData.length; i++){
+                if(inputsData[i].name === 'firstname' && inputsData[i].value.length < 3 || inputsData[i].name === 'firstname' && inputsData[i].value.length > 32){
+                    expect(inputsData[i].error).contains(newUserData.fieldsValidationMessages.firstName)
+                }
+                else if(inputsData[i].name === 'lastname' && inputsData[i].value.length < 3 || inputsData[i].name === 'lastname' && inputsData[i].value.length > 32){
+                    expect(inputsData[i].error).contains(newUserData.fieldsValidationMessages.lastName)
+                }
+                else if(inputsData[i].name === 'email' && inputsData[i].value.length < 3 || inputsData[i].name === 'email' && inputsData[i].value === newUserData.invalidEmail){
+                    expect(inputsData[i].error).contains(newUserData.fieldsValidationMessages.email)
+                }
+                else if(inputsData[i].name === 'address_1' && inputsData[i].value.length < 3 || inputsData[i].name === 'address_1' && inputsData[i].value.length > 128){
+                    expect(inputsData[i].error).contains(newUserData.fieldsValidationMessages.address1)
+                }
+                else if(inputsData[i].name === 'city' && inputsData[i].value.length < 3 || inputsData[i].name === 'city' && inputsData[i].value.length > 128){
+                    expect(inputsData[i].error).contains(newUserData.fieldsValidationMessages.city)
+                }
+                else if(inputsData[i].name === 'postcode' && inputsData[i].value.length < 3 || inputsData[i].name === 'postcode' && inputsData[i].value.length > 10){
+                    expect(inputsData[i].error).contains(newUserData.fieldsValidationMessages.zipCode)
+                }
+                else if(inputsData[i].name === 'loginname' && inputsData[i].value.length < 5 || inputsData[i].name === 'loginname' && inputsData[i].value.length > 64){
+                    expect(inputsData[i].error).contains(newUserData.fieldsValidationMessages.loginName)
+                }
+                else if(inputsData[i].name === 'loginname' && inputsData[i].value === loginData.loginName){
+                    expect(inputsData[i].error).contains(newUserData.fieldsValidationMessages.loginName)
+                }
+                else if(inputsData[i].name === 'password' && inputsData[i].value.length < 4 || inputsData[i].name === 'password' && inputsData[i].value.length > 20){
+                    expect(inputsData[i].error).contains(newUserData.fieldsValidationMessages.password)
+                }
+                else if(inputsData[i].name === 'confirm' && inputsData[i].value !== newUserData.password && inputsData[i].value.length !== 0){
+                    expect(inputsData[i].error).contains(newUserData.fieldsValidationMessages.wrongConfirmationPassword)
+                }
+            }
+
+            // if(inputName === 'firstname' && inputValue.length < 3 || inputValue.length > 32){
+            //     cy.wrap($el).should('have.class', 'has-error')
+            //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.firstName)
+            // }
+            // else if(inputName === 'lastname' && inputValue.length < 3 || inputValue.length > 32){
+            //     cy.wrap($el).should('have.class', 'has-error')
+            //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.lastName)
+            // }
+            // else if(inputName === 'email' && !inputValue.match(emailFormat)){
+            //     cy.wrap($el).should('have.class', 'has-error')
+            //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.email)
+            // }
+            // else if(inputName === 'address_1' && inputValue.length < 3 || inputValue.length > 128){
+            //     cy.wrap($el).should('have.class', 'has-error')
+            //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.address1)
+            // }
+            // else if(inputName === 'city' && inputValue.length < 3 || inputValue.length > 128){
+            //     cy.wrap($el).should('have.class', 'has-error')
+            //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.city)
+            // }
+            // else if(inputName === 'zone_id' && $el.hasClass('has-error')){
+            //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.state)
+            // }
+            // else if(inputName === 'postcode' && inputValue.length < 3 || inputValue.length > 10){
+            //     cy.wrap($el).should('have.class', 'has-error')
+            //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.zipCode)
+            // }
+            // else if(inputName === 'loginname' && inputValue.length < 5 ||  inputValue.length > 64){
+            //     cy.wrap($el).should('have.class', 'has-error')
+            //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.loginName)
+            // }
+            // else if(inputName === 'password' && inputValue.length < 4 || inputValue.length > 20){
+            //     cy.wrap($el).should('have.class', 'has-error')
+            //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.password)
+            // }
+            // else if(inputName === 'confirm' && inputValue.length < 4 || inputValue.length > 20){
+            //     cy.wrap($el).should('have.class', 'has-error')
+            //     expect(validationText.text().trim()).contains(newUserData.fieldsValidationMessages.password)
+            // }
         })
 
         return this
@@ -168,7 +272,7 @@ class newUserCheckoutPage {
             cy.get('input#AccountFrm_email')
                 .click()
                 .clear()
-                .type('@you.me.net')
+                .type(newUserData.invalidEmail)
         }
 
         
@@ -245,9 +349,26 @@ class newUserCheckoutPage {
         return this
     }
 
-    fillLoginNameInput(){
+    fillLoginNameInputWithNewName(){
+
+        let today = new Date()
+        let time = today.getTime()
+        cy.get(this.newUserCheckoutPageLocators.loginName)
+            .click()
+            .clear()
+            .type(`Maksym${time}`)
 
         return this
+    }
+
+    fillLoginNameInput(loginName){
+        
+        cy.get(this.newUserCheckoutPageLocators.loginName)
+            .click()
+            .clear()
+            .type(loginName)
+        
+        return true
     }
 
     fillPasswordInput(password){
@@ -260,13 +381,19 @@ class newUserCheckoutPage {
     }
 
     fillConfirmPasswordInput(confirmPassword){
-        let today = new Date()
-        let time = today.getTime()
-        cy.get(this.newUserCheckoutPageLocators.confirmPassword)
-        .click()
-        .clear()
-        .type(`Maksym${time}`)
 
+        cy.get(this.newUserCheckoutPageLocators.confirmPassword)
+            .click()
+            .clear()
+            .type(confirmPassword)
+
+        return this
+    }
+
+    agreeToPrivacyPolicy(){
+        cy.get(this.newUserCheckoutPageLocators.agreeToPrivacyPolicy)
+            .check()
+        
         return this
     }
 

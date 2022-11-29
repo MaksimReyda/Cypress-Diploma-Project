@@ -167,12 +167,11 @@ describe('Guest checkout page testing', function(){
 
     it('Positive scenario', function(){
 
-        // cy.AddProductToCart(0)
-        // // cy.AddProductToCart(4)
+        cy.AddProductToCart(0)
 
-        // shoppingCartPage
-        // .visitPage()
-        // .clickCheckoutButton()
+        shoppingCartPage
+            .visitPage()
+            .clickCheckoutButton()
 
         guestCheckoutPage
             .selectGuestCheckoutRadioButton()
@@ -188,22 +187,6 @@ describe('Guest checkout page testing', function(){
             .fillRegionSelect(3)
             .fillZipCodeInput(guestCheckoutPageData.zipCode)
             .clickContinueButton()
-        
-
-        
-
-        // .openShippingAddressBlock()
-        // .openShippingAddressBlock()
-
-
-        // .fillFirstNameInput()
-        // .clickContinueButton()
-        // .checkInputsValidation()
-        // .openShippingAddressBlock()
-        // .clickContinueButton()
-        // .checkInputsValidation()
-
-
-
+            .clickConfirmOrderButton()
     })
 })

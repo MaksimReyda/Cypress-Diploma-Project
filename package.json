@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "triggerAllTests-headless": "npx cypress run",
+    "triggerAllTests-in-cypress-dashboard": "npx cypress run --record --key 41f9b3d4-cff8-430d-96b8-8ea91de8b56e",
     "triggerAllTests-headed": "npx cypress run --headed",
     "triggerAllTests-chrome": "npx cypress run --browser chrome",
     "mochawesome-merge": "npx mochawesome-merge cypress/results/mochawesome/*.json > mochawesome.json && npx marge mochawesome.json",

@@ -19,6 +19,7 @@ module.exports = defineConfig({
     },
   },
   video: false,
+  videoUploadOnPasses: false,
   screenshotOnRunFailure: true,
   viewportWidth: 1500
   // reporter: 'mochawesome',

@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import { contains } from 'cypress/types/jquery'
 import {guestCheckoutPageData} from '../../fixtures/input_data'
 
 class guestCheckoutPage {
@@ -22,7 +23,8 @@ class guestCheckoutPage {
         country: 'select#guestFrm_country_id',
 
         continueBtn: "button[title='Continue']",
-        backButton: "a[title='Back']"
+        backButton: "a[title='Back']",
+        confirmButton: "[title='Confirm Order']"
     }
 
     visitGuestCheckoutPage(){
@@ -218,6 +220,14 @@ class guestCheckoutPage {
 
     clickBackButton(){
         cy.get(this.guestCheckoutPagelocators.backButton).contains('Back').click()
+        return this
+    }
+
+    clickConfirmOrderButton(){
+        cy.get(this.guestCheckoutPagelocators.confirmButton)
+            .contains('Confirm Order')
+            .click()
+
         return this
     }
 

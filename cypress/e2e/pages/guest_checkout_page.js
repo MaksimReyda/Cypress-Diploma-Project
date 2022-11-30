@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import { contains } from 'cypress/types/jquery'
+
 import {guestCheckoutPageData} from '../../fixtures/input_data'
 
 class guestCheckoutPage {

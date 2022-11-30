@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 import checkoutConfirmationPage from '../pages/checkout_confirmaiton_page'
 import guestCheckoutPage from '../pages/guest_checkout_page'
 import shoppingCartPage from '../pages/shopping_chart_page'
